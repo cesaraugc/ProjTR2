@@ -1,13 +1,13 @@
 IDIR = header
 CC = gcc
-CFLAGS = -I $(IDIR) -Wall
+CFLAGS = -I $(IDIR) -Wall -g
 
 ODIR = obj
 
 _DEPS = connection.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o receive.o
+_OBJ = main.o receive.o request.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 

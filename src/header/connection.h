@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <netdb.h>
 
 struct {
   struct sockaddr_in *dest;
@@ -14,3 +15,4 @@ struct {
 
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
+void makeRequest();
