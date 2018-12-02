@@ -18,9 +18,9 @@ int main(int argc, char *argv[])
   freeMemoryList.dest = dest;
   int consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
 
-  int len;
+  int len, i = 5;
 
-  while(consocket)
+  while(--i)
   {
       printf("Incoming connection from %s\n", inet_ntoa(dest->sin_addr));
 
