@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
   while(--i)
   {
-      printf("Incoming connection from %s\n", inet_ntoa(dest->sin_addr));
+      // printf("Incoming connection from %s\n", inet_ntoa(dest->sin_addr));
 
       // write(consocket, msg, strlen(msg));
       len = read(consocket, rmsg, MAXRCVLEN);
@@ -31,11 +31,12 @@ int main(int argc, char *argv[])
       // printf("%s\n", rmsg);
       fd = fopen("request.txt","w");
       fprintf(fd, "%s", rmsg);
+      fclose(fd);
       system("nano request.txt");
       getchar();
 
+      fd = fopen("request.txt.save", "r");
       makeRequest(fd);
-      fclose(fd);
       close(consocket);
       consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
   }

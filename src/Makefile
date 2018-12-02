@@ -1,6 +1,6 @@
 IDIR = header
 CC = gcc
-CFLAGS = -I $(IDIR) -Wall
+CFLAGS = -I $(IDIR) -Wall -g
 
 ODIR = obj
 

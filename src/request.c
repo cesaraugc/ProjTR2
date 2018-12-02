@@ -29,10 +29,13 @@ void makeRequest(FILE* fd) {
     // dest.sin_addr.s_addr = htonl(INADDR_LOOPBACK); /* set destination IP number - localhost, 127.0.0.1 */
     dest.sin_port = htons(80);                        /* set destination port number */
 
-    connect(someSocket, (struct sockaddr *)&dest, sizeof(struct sockaddr_in));
-
+    if(connect(someSocket, (struct sockaddr *)&dest, sizeof(struct sockaddr_in)) == -1){
+        printf("Can't connect\n");
+        freeMemory();
+        exit(1);
+    }
     write(someSocket, msg, strlen(msg));
-    fd1 = fopen("response.txt", "w");
+    fd1 = fopen("response.txt.save", "w");
     while((len = read(someSocket, buffer, 500) >= 0)){
         buffer[len] = '\0';
         fprintf(fd1, "%s", buffer);        
