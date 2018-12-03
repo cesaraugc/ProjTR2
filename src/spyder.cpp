@@ -27,13 +27,13 @@ int spyder(){
             temp += strlen("href=\"");
             (*strstr(temp,"\"")) = '\0';
             sscanf(temp, "%s", buff);
-            puts(temp);
+            cout << temp;
             getchar();                             
         } else if ((temp = strstr(msg, "src=\"")) != NULL) {
             temp += strlen("src=\"");
             (*strstr(temp,"\"")) = '\0';
             sscanf(temp, "%s", buff);
-            puts(temp);
+            cout << temp;
             getchar();
         }
     }
