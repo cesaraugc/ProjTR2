@@ -15,4 +15,5 @@ struct {
 
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
-void makeRequest();
+void makeRequest(char*);
+void getHostValue(char*, char*);

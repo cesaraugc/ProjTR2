@@ -1,12 +1,12 @@
 #include "connection.h"
 
 #define PORTNUM 8226
-#define MAXRCVLEN 500
+#define MAXRCVLEN 1000
 
 int main(int argc, char *argv[])
 {
   struct sockaddr_in *dest; /* socket info about the machine connecting to us */
-  char rmsg[MAXRCVLEN];
+  char rmsg[MAXRCVLEN], buff[200];
   socklen_t socksize = sizeof(struct sockaddr_in);
   FILE* fd;
   int ourSocket = createNewSocket(PORTNUM, 1);
@@ -19,26 +19,32 @@ int main(int argc, char *argv[])
   freeMemoryList.dest = dest;
   int consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
 
-  int len, i = 5;
+  int len, i = 10;
 
   while(--i)
   {
-      // printf("Incoming connection from %s\n", inet_ntoa(dest->sin_addr));
+    len = read(consocket, rmsg, MAXRCVLEN);
+    rmsg[len] = '\0';
+    // printf("%s\n", rmsg);
+    fd = fopen("request.txt","w");
+    fprintf(fd, "%s", rmsg);
+    fclose(fd);
+    system("nano request.txt");
+    getchar();
 
-      // write(consocket, msg, strlen(msg));
-      len = read(consocket, rmsg, MAXRCVLEN);
-      rmsg[len] = '\0';
-      // printf("%s\n", rmsg);
-      fd = fopen("request.txt","w");
-      fprintf(fd, "%s", rmsg);
-      fclose(fd);
-      system("nano request.txt");
-      getchar();
-
-      fd = fopen("request.txt.save", "r");
-      makeRequest(fd);
-      close(consocket);
-      consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
+    makeRequest("request.txt");
+    //Expecting response.txt to contains response from server
+    system("nano response.txt");
+    fd = fopen("response.txt","r");
+    printf("Writing back:\n");
+    while((fgets(buff, 200, fd)) != NULL){
+      puts(buff);
+      write(consocket, buff, strlen(buff));
+    }
+    printf("Done\n");
+    fclose(fd);
+    close(consocket);
+    consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
   }
   close(ourSocket);
 
