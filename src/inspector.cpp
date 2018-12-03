@@ -1,4 +1,4 @@
-#include "connection.h"
+#include "connection.hpp"
 
 #define PORTNUM 8226
 #define MAXRCVLEN 1000

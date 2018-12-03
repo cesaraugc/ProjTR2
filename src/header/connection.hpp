@@ -7,6 +7,9 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <vector>
+#include <string>
+#include <iostream> 
 
 struct {
   struct sockaddr_in *dest;

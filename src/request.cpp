@@ -1,4 +1,4 @@
-#include "connection.h"
+#include "connection.hpp"
 
 // Funcao que realiza requisicao com um arquivo
 void makeRequest(char *filePath) {
@@ -6,7 +6,7 @@ void makeRequest(char *filePath) {
     FILE *fd, *fd1;
     struct hostent *hp;
     char msg[1000];
-    char buff[201];
+    char buff[1001];
     int someSocket, len;
 
     msg[0] = '\0';
@@ -43,7 +43,7 @@ void makeRequest(char *filePath) {
     write(someSocket, msg, strlen(msg));
     fd1 = fopen("response.txt", "w");
     // Write response on file response.txt
-    while((len = read(someSocket, buff, 200)) > 0){
+    while((len = read(someSocket, buff, 1000)) > 0){
       buff[len] = '\0';
       fprintf(fd1, "%s", buff);
     }
