@@ -18,4 +18,5 @@ void freeMemory();
 void makeRequest(char*);
 void getHostValue(char*, char*);
 int inspector();
+int spyder();
 int dump();
