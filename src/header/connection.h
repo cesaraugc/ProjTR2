@@ -17,3 +17,5 @@ int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
 void makeRequest(char*);
 void getHostValue(char*, char*);
+int inspector();
+int dump();

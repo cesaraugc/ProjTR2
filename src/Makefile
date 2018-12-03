@@ -7,7 +7,7 @@ ODIR = obj
 _DEPS = connection.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o receive.o request.o
+_OBJ = main.o receive.o request.o inspector.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
