@@ -1,4 +1,4 @@
-#include "connection.h"
+#include "connection.hpp"
 
 int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
 

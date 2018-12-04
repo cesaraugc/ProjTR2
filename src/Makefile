@@ -1,17 +1,16 @@
 IDIR = header
-CC = gcc
-CFLAGS = -I $(IDIR) -Wall -g
-
+CC = g++
+CFLAGS = -I $(IDIR) -Wall -g -std=c++11
 ODIR = obj
 
-_DEPS = connection.h
+_DEPS = connection.hpp
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o receive.o request.o inspector.o
+_OBJ = main.o receive.o request.o inspector.o spyder.o dump.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 
-$(ODIR)/%.o: %.c $(DEPS)
+$(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 aracne: $(OBJ)
