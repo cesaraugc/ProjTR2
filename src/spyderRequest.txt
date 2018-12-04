@@ -1,4 +1,4 @@
-GET http://www.pudim.com.br/ HTTP/1.1
-Host: www.pudim.com.br
+GET /info/history/ HTTP/1.1
+Host: www.cplusplus.com
 Connection: close
 

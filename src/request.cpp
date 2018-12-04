@@ -1,7 +1,7 @@
 #include "connection.hpp"
 
 // Funcao que realiza requisicao com um arquivo
-void makeRequest(char *filePath) {
+void makeRequest(const char *filePath) {
     struct sockaddr_in dest;
     FILE *fd, *fd1;
     struct hostent *hp;

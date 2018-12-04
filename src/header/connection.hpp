@@ -10,7 +10,9 @@
 #include <vector>
 #include <string>
 #include <iostream> 
-
+#include <set>
+#include <iterator>
+#include <algorithm>
 struct {
   struct sockaddr_in *dest;
   struct sockaddr_in *serv;
@@ -18,8 +20,10 @@ struct {
 
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
-void makeRequest(char*);
+void makeRequest(const char*);
 void getHostValue(char*, char*);
 int inspector();
 int spyder();
 int dump();
+void constroiReferencia(std::set<std::string> & , char *);
+bool checkHTML(std::string);
