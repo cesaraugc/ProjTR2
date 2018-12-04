@@ -23,9 +23,6 @@ void makeRequest(const char *filePath) {
       exit(1);
     }
 
-    puts(msg);
-    printf("\nProceed?\n");
-    getchar();
     someSocket = socket(AF_INET, SOCK_STREAM, 0);
 
     memset(&dest, 0, sizeof(dest));                   /* zero the struct */

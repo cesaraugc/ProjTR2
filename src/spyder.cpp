@@ -24,7 +24,7 @@ int spyder(){
     fd = fopen("response.txt", "r");
     while(fgets(msg, 500, fd) != NULL){
         // checkHTML(msg);
-        constroiReferencia(result, msg);
+        constroiReferencia(result, msg, "");
     }
     fclose(fd);
 
@@ -43,30 +43,31 @@ int spyder(){
 
             fd = fopen("response.txt", "r");
             while(fgets(msg, 4000, fd) != NULL){
-                puts(msg);
-                constroiReferencia(result2, msg);
+                constroiReferencia(result2, msg, (*itr).c_str());
             }
-            // fd2 = fopen("spyderman.txt","a");
-            for (itr2 = result2.begin(); itr2 != result2.end(); ++itr2)
-            {
-                // fprintf(fd2, "%s\n", (*itr2).c_str());
-                cout << *itr2 << '\n';
-            }
-            // fclose(fd2);
-            result2.clear();
             fclose(fd);
         }
     }
+    fd2 = fopen("spyderman.txt","w");
+    for (itr2 = result2.begin(); itr2 != result2.end(); ++itr2)
+    {
+        fprintf(fd2, "%s\n", (*itr2).c_str());
+        // cout << *itr2 << '\n';
+    }
+    fclose(fd2);
     cout << endl;
 
     return EXIT_SUCCESS;
 }
 
 
-void constroiReferencia(set<string> & result, char *msg) {
+void constroiReferencia(set<string> & result, char *msg, const char *base) {
     char *temp;
-    char buff[100];
+    char buff[1000];
 
+    puts(base);
+    getchar();
+    strcpy(buff, base);
     /* Localiza o href */
     if((temp = strstr(msg, "href=\"")) != NULL){
         temp += strlen("href=\"");
@@ -75,19 +76,19 @@ void constroiReferencia(set<string> & result, char *msg) {
             (*strstr(temp, "?")) = '\0';
         }
         sscanf(temp, "%s", buff);
-        if(strstr(buff, "https") || strstr(buff, "#") || strstr(buff, "http") || strstr(buff, "//") || strstr(buff, "mailto"))
+        if(strstr(buff, "https") || strstr(buff, "#") || strstr(buff, "http") || strstr(buff, "//") || strstr(buff, "mailto") || strstr(buff, "\'") || strstr(buff, "www"))
         {
             return;
         }
         result.emplace(buff);                /* insere item único no set */
-    } else if ((temp = strstr(msg, "src=\"")) != NULL) { /* Localiza o src */
+    } if ((temp = strstr(msg, "src=\"")) != NULL) { /* Localiza o src */
         temp += strlen("src=\"");
         (*strstr(temp,"\"")) = '\0';    /* lê até a próxima aspa */
         if(strstr(temp, "?")){
             (*strstr(temp, "?")) = '\0';
         }
         sscanf(temp, "%s", buff);
-        if(strstr(buff, "https") || strstr(buff, "#") || strstr(buff, "http") || strstr(buff, "//") || strstr(buff, "mailto"))
+        if(strstr(buff, "https") || strstr(buff, "#") || strstr(buff, "http") || strstr(buff, "//") || strstr(buff, "mailto") || strstr(buff, "\'") || strstr(buff, "www"))
         {
             return;
         }

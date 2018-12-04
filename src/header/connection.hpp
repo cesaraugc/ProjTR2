@@ -25,5 +25,5 @@ void getHostValue(char*, char*);
 int inspector();
 int spyder();
 int dump();
-void constroiReferencia(std::set<std::string> & , char *);
+void constroiReferencia(std::set<std::string> & , char *, const char*);
 bool checkHTML(std::string);
