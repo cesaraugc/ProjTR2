@@ -1,0 +1,81 @@
+HTTP/1.1 503 Service Unavailable
+Content-Type: text/html; charset=UTF-8
+Content-Length: 2193
+Connection: close
+P3P: CP="CAO PSA OUR"
+Expires: Thu, 01 Jan 1970 00:00:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+
+<html>
+<head>
+<title>Aplica&ccedil;&atilde;o bloqueada</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<meta name="viewport" content="initial-scale=1.0">
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+<style>
+	body{ background: #A31919; }
+	
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+	
+  #content {
+    border:0px solid#aaa;
+    background-color:#fff;
+    margin:2%;
+    padding:2%;
+    font-family:Tahoma,Helvetica,Arial,sans-serif;
+    font-size:100%;
+	text-align: justify;
+	vertical-align: middle;
+	position: relative;
+	top: 50%;
+  }
+  
+  li {
+   font-size: 90%;
+   
+  }
+  
+  .title
+  {
+  font-size:220%;
+  font-family:Tahoma,Helvetica,Arial,sans-serif;
+  color:#A31919;
+  font-weight:bold;
+  }
+</style>
+</head>
+<body>
+<div class="outer">
+<div id="content">
+<p class="title"><i class="icon-warning-sign"></i> P&aacute;gina bloqueada.</p>
+<p> O acesso a p&aacute;gina solicitada foi bloqueado de acordo com a pol&iacute;tica de seguran&ccedil;a em vigor. Acione o suporte t&eacute;cnico caso precise acessar a p&aacute;gina para sua atividade profissional, informando o tipo de aplica&ccedil;&atilde;o descrita abaixo e o motivo.</p>
+<p>
+<i class="fa fa-phone"></i> +55 (61) 3342-1740<br />
+<i class="fa fa-envelope-o"></i> servicedesk@gdfnet.df.gov.br<br />
+</p>
+<p><b>Aplica&ccedil;&atilde;o:</b>  http-proxy </p>
+<p><b>IP:</b> 164.41.4.26 </p>
+
+<b>Refer&ecirc;ncias normativas:</b>
+<ul>
+<li>
+Pol&iacute;tica de Seguran&ccedil;a da Informa&ccedil;&atilde;o e Comunica&ccedil;&atilde;o do Governo do Distrito Federal (PoSIC/GDF)</li>
+<li>Lei 12.965/14</li>
+<li>Lei 12.735/12</li>
+<li>Lei Complementar 840/11</li>
+<li>Decreto n&deg; 25.750/05</li>
+<li>Lei n&deg; 2.572/00</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
