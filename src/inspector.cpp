@@ -25,7 +25,10 @@ int inspector() {
 
   while(--i)
   {
-    len = read(consocket, rmsg, MAXRCVLEN);
+    if((len = read(consocket, rmsg, MAXRCVLEN)) == 0){
+      cout << "Connection close by remote host" << endl;
+      break;
+    }
     rmsg[len] = '\0';
     // printf("%s\n", rmsg);
     fd = fopen("request.txt","w");
@@ -50,6 +53,7 @@ int inspector() {
     close(consocket);
     consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
   }
+  close(consocket);
   close(ourSocket);
 
   freeMemory();
