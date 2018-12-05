@@ -5,6 +5,7 @@ int spyder(){
     char baseURL[100];
     string msg;
     set <string> result, result2;
+    set <set<string>> inspectAll;
     FILE *fd2;
 
     printf("\n\tForneca um dominio valido:\n\n");
@@ -12,44 +13,47 @@ int spyder(){
 
     msg = "GET http://" + string(baseURL) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
     puts(msg.c_str());
-<<<<<<< HEAD
-
-=======
     
->>>>>>> a789148dae87dac24984dbe1c04736a670f6660b
     printf("Proceed?\n");
     getchar();
 
     string response = makeRequest(msg);
 
-    constroiReferencia(result, response.c_str(), "");
+    constroiReferencia(result, response, string(""));
+    inspectAll.insert(result);
     set<string>::iterator itr;
 
     for (itr = result.begin(); itr != result.end(); ++itr) {
         cout << *itr << endl;
     }
 
-    set<string>::iterator itr2;
-
     for (itr = result.begin(); itr != result.end(); ++itr)
     {
         if(isHTML(*itr)) {
-            cout << *itr << " eh html\n\n" << endl;
+            cout << endl << "Inspecionando " << *itr << endl;
             msg = "GET http://" + (*itr) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
 
             response = makeRequest(msg); // returning response.txt
 
-            // fd = fopen("response.txt", "r");
-            // while(fgets(msg, 4000, fd) != NULL){
-            constroiReferencia(result2, response.c_str(), (*itr).c_str());
-            // }
+            constroiReferencia(result2, response, (*itr));
+            inspectAll.insert(result2);
         }
     }
+
     fd2 = fopen("spyderman.txt","w");
-    for (itr2 = result2.begin(); itr2 != result2.end(); ++itr2)
-    {
-        fprintf(fd2, "%s\n", (*itr2).c_str());
-        // cout << *itr2 << '\n';
+    size_t index = 0;
+    for(set<string>::iterator i = result.begin(); i != result.end(); ++i){
+        cout << *i << "-->"<< endl;        
+        fprintf(fd2, "%s-->\n", (*i).c_str());
+        if(isHTML(*i)){
+            set<set<string>>::iterator itr2 = inspectAll[index];
+            for (itr = itr2->begin(); itr != itr2->end(); ++itr)
+            {
+                fprintf(fd2, "\t%s\n", (*itr).c_str()); 
+                cout << '\t' << *itr << endl;   
+            }
+            index++;
+        }
     }
     fclose(fd2);
     cout << endl;
@@ -58,49 +62,52 @@ int spyder(){
 }
 
 
-void constroiReferencia(set<string> & result, string response, const char *base) {
-    // char buff[1000];
+/* Insere em result os arquivos/diretórios encontrados em response */
+void constroiReferencia(set<string> & result, string response, string base) {
     string buff;
     size_t init_index = 0;
-
-    puts(base);
+    size_t leng;
+    
     while ((init_index = response.find("href=\"", init_index)) != string::npos) {
-      buff = response.substr(init_index + 6, response.find('\"', init_index + 6) - (init_index + 6));
-      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
-      {
+        leng = string("href=\"").length();
+        buff = response.substr(init_index + leng, response.find('\"', init_index + leng) - (init_index + leng));
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+        {
+            init_index += buff.length() + 1;
+            continue;
+        }
         init_index += buff.length() + 1;
-        continue;
-      }
-      cout << buff << '\n';
-      init_index += buff.length() + 1;
-      result.emplace(buff);
-    }
-    init_index = 0;
+        result.emplace(buff);
+        }
+        init_index = 0;
     while ((init_index = response.find("src=\"", init_index)) != string::npos) {
-      buff = response.substr(init_index + 5, response.find('\"', init_index + 5) - (init_index + 5));
-      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
-      {
+        leng = string("src=\"").length();
+        buff = response.substr(init_index + leng, response.find('\"', init_index + leng) - (init_index + leng));
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+        {
+            init_index += buff.length() + 1;
+            continue;
+        }
         init_index += buff.length() + 1;
-        continue;
-      }
-      cout << buff << '\n';
-      init_index += buff.length() + 1;
-      result.emplace(buff);
+        result.emplace(buff);
     }
     init_index = 0;
+
     while ((init_index = response.find("url(\"", init_index)) != string::npos) {
-      buff = response.substr(init_index + 5, response.find('\"', init_index + 5) - (init_index + 5));
-      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
-      {
+        leng = string("url(\"").length();
+        buff = response.substr(init_index + leng, response.find('\"', init_index + leng) - (init_index + leng));
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+        {
+            init_index += buff.length() + 1;
+            continue;
+        }
         init_index += buff.length() + 1;
-        continue;
-      }
-      cout << buff << '\n';
-      init_index += buff.length() + 1;
-      result.emplace(buff);
+        result.emplace(buff);
     }
 }
 
+
+/* Verifica se um caminho é HTML para saber se deve ser inspecionado */
 bool isHTML(string value) {
     std::size_t indexSlash = 1;
     std::size_t lastValue;

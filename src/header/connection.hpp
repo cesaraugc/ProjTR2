@@ -27,7 +27,7 @@ std::string getHostValue(std::string);
 int inspector();
 int spyder();
 int dump();
-void constroiReferencia(std::set<std::string> & ,const char *, const char*);
+void constroiReferencia(std::set<std::string> & ,std::string, std::string);
 bool isHTML(std::string);
 std::string readFile(std::string);
 bool writeFile(std::string path, std::string content);

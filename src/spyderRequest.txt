@@ -1,4 +1,0 @@
-GET http://www.ba.gov.br/ HTTP/1.1
-Host: www.ba.gov.br
-Connection: close
-

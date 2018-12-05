@@ -1,25 +1,16 @@
 #include "connection.hpp"
 using namespace std;
 
-// Funcao que realiza com a string
+/* Recebe uma string e realiza a requisição */
 std::string makeRequest(std::string msg_string) {
     struct sockaddr_in dest;
     FILE *fd, *fd1;
     struct hostent *hp;
     char buff[1001];
-    // string buff;
     int someSocket, len;
     string response;
 
-    // msg[0] = '\0';
-    // fd = fopen(filePath,"r");
-    // while((fgets(buff, 200, fd)) != NULL){
-    //   strcat(msg, buff);
-    // }
-    // fclose(fd);
-
     string host_name = getHostValue(msg_string);
-    // gethostbyname(buff.c_str());
     if((hp = gethostbyname(host_name.c_str())) == NULL){
       fprintf(stderr, "Can't get server's address\n");
       freeMemory();
@@ -52,18 +43,16 @@ std::string makeRequest(std::string msg_string) {
     return response;
 }
 
-std::string getHostValue(std::string string) {
+/* Retorna o Host Name da mensagem recebida */
+std::string getHostValue(std::string msg_string) {
   std::size_t temp, temp2;
   std::string host_name;
 
-  temp = string.find("Host: ");
+  temp = msg_string.find("Host: ");
   temp += strlen("Host: ");
-  string.assign( string, temp, string::npos );
-  temp2 = string.find("\r\n");
-  host_name.assign( string, 0, temp2 );
+  msg_string.assign( msg_string, temp, string::npos );
+  temp2 = msg_string.find("\r\n");
+  host_name.assign( msg_string, 0, temp2 );
 
-  // sscanf(temp, "%s", buffer);
-  // buffer = temp;
-  
   return host_name;
 }
