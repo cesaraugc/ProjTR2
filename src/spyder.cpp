@@ -12,25 +12,12 @@ int spyder(){
     scanf("%s", baseURL);
 
     msg = "GET http://" + string(baseURL) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
-    // sprintf(msg, "GET http://%s/ HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", baseURL, baseURL);
     puts(msg.c_str());
-    
-    // FILE *fd = fopen("spyderRequest.txt","w");
-    // fprintf(fd, "%s", msg);
-    // fclose(fd);
-    
+
     printf("Proceed?\n");
     getchar();
 
     string response = makeRequest(msg);
-
-    // returning response.txt
-    // fd = fopen("response.txt", "r");
-    // while(fgets(msg, 500, fd) != NULL){
-    //     // isHTML(msg);
-    //     constroiReferencia(result, msg, "");
-    // }
-    // fclose(fd);
 
     constroiReferencia(result, response.c_str(), "");
     set<string>::iterator itr;
@@ -73,38 +60,46 @@ int spyder(){
 }
 
 
-void constroiReferencia(set<string> & result, const char *msg, const char *base) {
-    char *temp;
-    char buff[1000];
+void constroiReferencia(set<string> & result, string response, const char *base) {
+    // char buff[1000];
+    string buff;
+    size_t init_index = 0;
 
     puts(base);
-    // getchar();
-    strcpy(buff, base);
-    /* Localiza o href */
-    if((temp = (char*)strstr(msg, "href=\"")) != NULL){
-        temp += strlen("href=\"");
-        (*strstr(temp,"\"")) = '\0';    /* lê até a próxima aspa*/
-        if(strstr(temp, "?")){
-            (*strstr(temp, "?")) = '\0';
-        }
-        sscanf(temp, "%s", buff);
-        if(strstr(buff, "https") || strstr(buff, "#") || strstr(buff, "http") || strstr(buff, "//") || strstr(buff, "mailto") || strstr(buff, "\'") || strstr(buff, "www"))
-        {
-            return;
-        }
-        result.emplace(buff);                /* insere item único no set */
-    } if ((temp = (char*)strstr(msg, "src=\"")) != NULL) { /* Localiza o src */
-        temp += strlen("src=\"");
-        (*strstr(temp,"\"")) = '\0';    /* lê até a próxima aspa */
-        if(strstr(temp, "?")){
-            (*strstr(temp, "?")) = '\0';
-        }
-        sscanf(temp, "%s", buff);
-        if(strstr(buff, "https") || strstr(buff, "#") || strstr(buff, "http") || strstr(buff, "//") || strstr(buff, "mailto") || strstr(buff, "\'") || strstr(buff, "www"))
-        {
-            return;
-        }
-        result.emplace(buff);   /* insere item único no set */
+    while ((init_index = response.find("href=\"", init_index)) != string::npos) {
+      buff = response.substr(init_index + 6, response.find('\"', init_index + 6) - (init_index + 6));
+      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+      {
+        init_index += buff.length() + 1;
+        continue;
+      }
+      cout << buff << '\n';
+      init_index += buff.length() + 1;
+      result.emplace(buff);
+    }
+    init_index = 0;
+    while ((init_index = response.find("src=\"", init_index)) != string::npos) {
+      buff = response.substr(init_index + 5, response.find('\"', init_index + 5) - (init_index + 5));
+      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+      {
+        init_index += buff.length() + 1;
+        continue;
+      }
+      cout << buff << '\n';
+      init_index += buff.length() + 1;
+      result.emplace(buff);
+    }
+    init_index = 0;
+    while ((init_index = response.find("url(\"", init_index)) != string::npos) {
+      buff = response.substr(init_index + 5, response.find('\"', init_index + 5) - (init_index + 5));
+      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+      {
+        init_index += buff.length() + 1;
+        continue;
+      }
+      cout << buff << '\n';
+      init_index += buff.length() + 1;
+      result.emplace(buff);
     }
 }
 
