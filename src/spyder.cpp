@@ -3,7 +3,6 @@ using namespace std;
 
 int spyder(){
     char baseURL[100];
-    // char msg[4000];
     string msg;
     set <string> result, result2;
     FILE *fd2;
@@ -13,7 +12,11 @@ int spyder(){
 
     msg = "GET http://" + string(baseURL) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
     puts(msg.c_str());
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> a789148dae87dac24984dbe1c04736a670f6660b
     printf("Proceed?\n");
     getchar();
 
@@ -33,10 +36,6 @@ int spyder(){
         if(isHTML(*itr)) {
             cout << *itr << " eh html\n\n" << endl;
             msg = "GET http://" + (*itr) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
-            // sprintf(msg, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", (*itr).c_str(), baseURL);
-            // FILE *fd = fopen("spyderRequest.txt","w");
-            // fprintf(fd, "%s", msg);
-            // fclose(fd);
 
             response = makeRequest(msg); // returning response.txt
 
@@ -44,7 +43,6 @@ int spyder(){
             // while(fgets(msg, 4000, fd) != NULL){
             constroiReferencia(result2, response.c_str(), (*itr).c_str());
             // }
-            // fclose(fd);
         }
     }
     fd2 = fopen("spyderman.txt","w");
