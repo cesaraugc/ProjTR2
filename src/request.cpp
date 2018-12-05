@@ -1,23 +1,26 @@
 #include "connection.hpp"
+using namespace std;
 
-// Funcao que realiza requisicao com um arquivo
-void makeRequest(const char *filePath) {
+// Funcao que realiza com a string
+std::string makeRequest(string msg_string) {
     struct sockaddr_in dest;
     FILE *fd, *fd1;
     struct hostent *hp;
-    char msg[1000];
     char buff[1001];
+    // string buff;
     int someSocket, len;
+    string response;
 
-    msg[0] = '\0';
-    fd = fopen(filePath,"r");
-    while((fgets(buff, 200, fd)) != NULL){
-      strcat(msg, buff);
-    }
-    fclose(fd);
+    // msg[0] = '\0';
+    // fd = fopen(filePath,"r");
+    // while((fgets(buff, 200, fd)) != NULL){
+    //   strcat(msg, buff);
+    // }
+    // fclose(fd);
 
-    getHostValue(msg, buff);
-    if((hp = gethostbyname(buff)) == NULL){
+    string host_name = getHostValue(msg_string);
+    // gethostbyname(buff.c_str());
+    if((hp = gethostbyname(host_name.c_str())) == NULL){
       fprintf(stderr, "Can't get server's address\n");
       freeMemory();
       exit(1);
@@ -37,21 +40,30 @@ void makeRequest(const char *filePath) {
       exit(1);
     }
     printf("Connect on host: %s\n", inet_ntoa(dest.sin_addr));
-    write(someSocket, msg, strlen(msg));
-    fd1 = fopen("response.txt", "w");
-    // Write response on file response.txt
+    write(someSocket, msg_string.c_str(), msg_string.length());
+
     while((len = read(someSocket, buff, 1000)) > 0){
       buff[len] = '\0';
-      fprintf(fd1, "%s", buff);
+      response += string(buff);
     }
-    fclose(fd1);
     printf("Response received\n");
+    close(someSocket);
+
+    return response;
 }
 
-void getHostValue(char *string, char *buffer) {
-  char *temp;
+std::string getHostValue(std::string string) {
+  std::size_t temp, temp2;
+  std::string host_name;
 
-	temp = strstr(string, "Host: ");
-	temp += strlen("Host: ");
-	sscanf(temp, "%s", buffer);
+  temp = string.find("Host: ");
+  temp += strlen("Host: ");
+  string.assign( string, temp, string::npos );
+  temp2 = string.find("\r\n");
+  host_name.assign( string, 0, temp2 );
+
+  // sscanf(temp, "%s", buffer);
+  // buffer = temp;
+  
+  return host_name;
 }

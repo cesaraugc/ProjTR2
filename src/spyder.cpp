@@ -3,49 +3,61 @@ using namespace std;
 
 int spyder(){
     char baseURL[100];
-    char msg[4000];
+    // char msg[4000];
+    string msg;
     set <string> result, result2;
     FILE *fd2;
 
     printf("\n\tForneca um dominio valido:\n\n");
     scanf("%s", baseURL);
 
-    sprintf(msg, "GET http://%s/ HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", baseURL, baseURL);
-    puts(msg);
-    FILE *fd = fopen("spyderRequest.txt","w");
-    fprintf(fd, "%s", msg);
-    fclose(fd);
+    msg = "GET http://" + string(baseURL) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
+    // sprintf(msg, "GET http://%s/ HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", baseURL, baseURL);
+    puts(msg.c_str());
+    
+    // FILE *fd = fopen("spyderRequest.txt","w");
+    // fprintf(fd, "%s", msg);
+    // fclose(fd);
+    
     printf("Proceed?\n");
     getchar();
 
-    makeRequest("spyderRequest.txt");
+    string response = makeRequest(msg);
 
     // returning response.txt
-    fd = fopen("response.txt", "r");
-    while(fgets(msg, 500, fd) != NULL){
-        // checkHTML(msg);
-        constroiReferencia(result, msg, "");
-    }
-    fclose(fd);
+    // fd = fopen("response.txt", "r");
+    // while(fgets(msg, 500, fd) != NULL){
+    //     // isHTML(msg);
+    //     constroiReferencia(result, msg, "");
+    // }
+    // fclose(fd);
 
-    /* printa o vetor */
+    constroiReferencia(result, response.c_str(), "");
     set<string>::iterator itr;
+
+    for (itr = result.begin(); itr != result.end(); ++itr) {
+        cout << *itr << endl;
+    }
+
     set<string>::iterator itr2;
+
     for (itr = result.begin(); itr != result.end(); ++itr)
     {
-        if(checkHTML(*itr)) {
+        if(isHTML(*itr)) {
             cout << *itr << " eh html\n\n" << endl;
-            sprintf(msg, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", (*itr).c_str(), baseURL);
-            FILE *fd = fopen("spyderRequest.txt","w");
-            fprintf(fd, "%s", msg);
-            fclose(fd);
-            makeRequest("spyderRequest.txt"); // returning response.txt
+            msg = "GET http://" + (*itr) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
+            // sprintf(msg, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", (*itr).c_str(), baseURL);
+            // FILE *fd = fopen("spyderRequest.txt","w");
+            // fprintf(fd, "%s", msg);
+            // fclose(fd);
 
-            fd = fopen("response.txt", "r");
-            while(fgets(msg, 4000, fd) != NULL){
-                constroiReferencia(result2, msg, (*itr).c_str());
-            }
-            fclose(fd);
+            response = makeRequest(msg); // returning response.txt
+
+            // fd = fopen("response.txt", "r");
+            // while(fgets(msg, 4000, fd) != NULL){
+            constroiReferencia(result2, response.c_str(), (*itr).c_str());
+            // }
+            // fclose(fd);
         }
     }
     fd2 = fopen("spyderman.txt","w");
@@ -61,15 +73,15 @@ int spyder(){
 }
 
 
-void constroiReferencia(set<string> & result, char *msg, const char *base) {
+void constroiReferencia(set<string> & result, const char *msg, const char *base) {
     char *temp;
     char buff[1000];
 
     puts(base);
-    getchar();
+    // getchar();
     strcpy(buff, base);
     /* Localiza o href */
-    if((temp = strstr(msg, "href=\"")) != NULL){
+    if((temp = (char*)strstr(msg, "href=\"")) != NULL){
         temp += strlen("href=\"");
         (*strstr(temp,"\"")) = '\0';    /* lê até a próxima aspa*/
         if(strstr(temp, "?")){
@@ -81,7 +93,7 @@ void constroiReferencia(set<string> & result, char *msg, const char *base) {
             return;
         }
         result.emplace(buff);                /* insere item único no set */
-    } if ((temp = strstr(msg, "src=\"")) != NULL) { /* Localiza o src */
+    } if ((temp = (char*)strstr(msg, "src=\"")) != NULL) { /* Localiza o src */
         temp += strlen("src=\"");
         (*strstr(temp,"\"")) = '\0';    /* lê até a próxima aspa */
         if(strstr(temp, "?")){
@@ -96,7 +108,7 @@ void constroiReferencia(set<string> & result, char *msg, const char *base) {
     }
 }
 
-bool checkHTML(string value) {
+bool isHTML(string value) {
     std::size_t indexSlash = 1;
     std::size_t lastValue;
 
