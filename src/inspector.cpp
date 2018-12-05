@@ -1,7 +1,7 @@
 #include "connection.hpp"
 
 #define PORTNUM 8226
-#define MAXRCVLEN 1000
+#define MAXRCVLEN 2000
 
 using namespace std;
 

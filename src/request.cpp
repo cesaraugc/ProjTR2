@@ -2,7 +2,7 @@
 using namespace std;
 
 // Funcao que realiza com a string
-std::string makeRequest(string msg_string) {
+std::string makeRequest(std::string msg_string) {
     struct sockaddr_in dest;
     FILE *fd, *fd1;
     struct hostent *hp;
