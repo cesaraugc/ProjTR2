@@ -1,35 +1,35 @@
 HTTP/1.1 200 OK
-Date: Wed, 05 Dec 2018 02:25:49 GMT
-Server: Apache/2.4.34 (Amazon) OpenSSL/1.0.2k-fips PHP/5.5.38
-Last-Modified: Wed, 23 Dec 2015 01:17:36 GMT
-ETag: "1b9-527867cc9137d"
-Accept-Ranges: bytes
-Content-Length: 441
-Keep-Alive: timeout=5, max=100
-Connection: Keep-Alive
-Content-Type: text/css
+Date: Wed, 05 Dec 2018 02:56:51 GMT
+Server: Apache/2.4.18 (Ubuntu)
+Content-Length: 590
+Content-Type: text/html; charset=UTF-8
 
-body{
-    background-color: #d0d0d0;
-    margin: 0px;
-    padding: 0px;
-}
-.container{
-    width: 650px;
-    background-color: #FFF;
-    position: relative;
-    padding: 40px 70px;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 50%;
-    margin-left: -395px;
-}
-.container .email{
-    margin-top: 5px;
-}
-.container .email a{
-    font-family: verdana, arial;
-    font-size: 11px;
-    padding-top: 10px;
-}
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>tencents.info</title>
+	<!--[if IE]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<style type="text/css">
+	<!--
+
+	html,body {
+		height:99%;
+	}
+
+	-->
+	</style>
+</head>
+<body>
+
+	<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%">
+		<tr>
+			<td align="center" valign="middle">
+								<img src="dimefront.gif" width="227" height="233" alt="10&cent;" title="10&cent;" border="0">
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
