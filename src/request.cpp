@@ -6,7 +6,7 @@ std::string makeRequest(std::string msg_string) {
     struct sockaddr_in dest;
     FILE *fd, *fd1;
     struct hostent *hp;
-    unsigned char buff[1001];
+    char buff[1001];
     // string buff;
     int someSocket, len;
     string response;
