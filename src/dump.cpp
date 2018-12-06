@@ -58,7 +58,7 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
         getchar();
       }
     } else {// procurar href, src e trocar as referencias
-      fixRefs() 
+      // fixRefs() 
     }
   }
   return EXIT_SUCCESS;
@@ -75,11 +75,11 @@ string cutHead(string serverRequest) {
   return withouthead;
 }
 
-string fixRefs(string serverResponse) {
-  while((index = serverResponse.find("href\"", index)) != string::npos){
-        leng = string("href=\"").length();
-        size_t size_str = response.find('\"', index + leng) - (index+leng);
+// string fixRefs(string serverResponse) {
+//   while((index = serverResponse.find("href\"", index)) != string::npos){
+//         leng = string("href=\"").length();
+//         size_t size_str = response.find('\"', index + leng) - (index+leng);
         
-        index += (size_str + leng + 1);
-      }
-}
+//         index += (size_str + leng + 1);
+//       }
+// }
