@@ -1,23 +1,6 @@
 #include "connection.hpp"
 using namespace std;
 
-class Node
-{ 
-    // Access specifier 
-    public: 
-
-    // Node(std::string src, std::string pai, std::set<std::string> filhos, int profundidade) :
-		//   src(src), pai(pai), filhos(filhos), profundidade(profundidade)
-	  // {}
-  
-    // Data Members 
-    std::string src;
-    std::string pai;
-    std::set<std::string> filhos;
-    int profundidade;
-    bool isHTML;
-};
-
 map<string,set<string>> spyder(string baseURL){
     string msg;
     set <string> root, visited;
@@ -60,11 +43,12 @@ map<string,set<string>> spyder(string baseURL){
                      ++itr)
                 {   
                     if (visited.find(*itr) == visited.end()) {
+                        // visited.insert(*itr);
                         set<string> result = buscaFilhos(*itr, baseURL);
                         // visited.insert(*itr);
                         inspectMap[*itr] = result;
                         Node node_to_insert;
-                        node_to_insert.src = node_to_search.src;
+                        node_to_insert.src = (*itr);
                         node_to_insert.pai = node_to_search.src;
                         node_to_insert.profundidade = (node_to_search.profundidade + 1);
                         if(result.empty()){
