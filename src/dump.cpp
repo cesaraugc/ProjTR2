@@ -8,7 +8,7 @@ void makeDump(){
   cout << "\n\tForneca um dominio valido:\n\n" << endl;
   cin >> baseURL;
   map<string, set<string>> inspectMap = spyder(baseURL);
-  dump(inspectMap, baseURL);  
+  dump(inspectMap, baseURL);
 }
 
 int dump(map<string, set<string>> inspectMap, string baseURL) {
@@ -20,14 +20,13 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
   string foldername = "mkdir -p " + baseURL;
   set <string> requests;
   ofstream file;
-  size_t index = 0;
 
   system(foldername.c_str());
 
   for (map<string,set<string>>::iterator it=inspectMap.begin(); it!=inspectMap.end(); ++it){
     for(set<string>::iterator itr=(it->second).begin(); itr!=(it->second).end(); itr++){
       requests.emplace(*itr);
-    }    
+    }
   }
 
   for(set<string>::iterator itr = requests.begin(); itr != requests.end(); ++itr){
@@ -37,7 +36,7 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
       systemCommand = "mkdir -p " + foldername;
       filename = baseURL + string("/") + (*itr);
     } else {
-      request = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n"; 
+      request = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
       foldername = baseURL + (*itr).substr(1, (*itr).find_last_of('/'));
       systemCommand = "mkdir -p " + foldername;
       filename = baseURL + (*itr);
@@ -49,7 +48,7 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
     if(!isHTML(*itr)) {
       system(systemCommand.c_str());
       cout << "tryning to write to folder: " << baseURL + "/" + (*itr) << endl;
-      file.open(filename, ofstream::binary); 
+      file.open(filename, ofstream::binary);
       if(file.is_open()){
         file << serverResponse;
         file.close();
@@ -58,7 +57,27 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
         getchar();
       }
     } else {// procurar href, src e trocar as referencias
-      fixRefs() 
+      string name;
+      if((*itr).compare("/") == 0){
+        name = "index.html";
+      } else {
+        name = (*itr).substr((*itr).find_last_of("/"));
+        name += ".html";
+      }
+      name = baseURL + "/" + name;
+      serverResponse = fixRefs(serverResponse);
+
+      cout << "tryning to write to file: " << name << endl;
+      file.open(name, ofstream::binary);
+      if(file.is_open()){
+        file << serverResponse;
+        file.close();
+        cout << "Check references now" << endl;
+        getchar();
+      } else {
+        cout << "Unable to open file. Proceed?" << endl;
+        getchar();
+      }
     }
   }
   return EXIT_SUCCESS;
@@ -76,10 +95,56 @@ string cutHead(string serverRequest) {
 }
 
 string fixRefs(string serverResponse) {
-  while((index = serverResponse.find("href\"", index)) != string::npos){
-        leng = string("href=\"").length();
-        size_t size_str = response.find('\"', index + leng) - (index+leng);
-        
-        index += (size_str + leng + 1);
+  string buff;
+  size_t init_index, leng;
+
+  while ((init_index = serverResponse.find("href=\"", init_index)) != string::npos) {
+      leng = string("href=\"").length();
+      buff = serverResponse.substr(init_index + leng, serverResponse.find('\"', init_index + leng) - (init_index + leng));
+      if((leng = buff.find('?')) != string::npos){
+          buff = buff.substr(0, leng);
       }
+      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos||buff.find(".html") != string::npos)
+      {
+          init_index += buff.length() + 1;
+          continue;
+      }
+      if(isHTML(buff)){
+        if(buff.compare("/") == 0){ //They are equals
+          buff = string("index.html");
+          serverResponse.replace(init_index + leng, buff.length(), buff);
+        } else {
+          buff = buff.substr(buff.find_last_of("/"));
+          buff += ".html";
+          serverResponse.replace(init_index + leng, buff.length(), buff);
+        }
+      }
+      init_index += buff.length() + 1;
+    }
+  init_index = 0;
+  while ((init_index = serverResponse.find("src=\"", init_index)) != string::npos) {
+      leng = string("src=\"").length();
+      buff = serverResponse.substr(init_index + leng, serverResponse.find('\"', init_index + leng) - (init_index + leng));
+      if((leng = buff.find('?')) != string::npos){
+          buff = buff.substr(0, leng);
+      }
+      if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos||buff.find(".html") != string::npos)
+      {
+          init_index += buff.length() + 1;
+          continue;
+      }
+      if(isHTML(buff)){
+        if(buff.compare("/") == 0){ //They are equals
+          buff = string("index.html");
+          serverResponse.replace(init_index + leng, buff.length(), buff);
+        } else {
+          buff.substr(buff.find_last_of("/"));
+          buff += ".html";
+          serverResponse.replace(init_index + leng, buff.length(), buff);
+        }
+      }
+      init_index += buff.length() + 1;
+  }
+
+  return serverResponse;
 }

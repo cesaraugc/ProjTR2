@@ -23,11 +23,11 @@ struct {
 } freeMemoryList;
 
 // class Node
-// { 
-//     // Access specifier 
-//     public: 
-  
-//     // Data Members 
+// {
+//     // Access specifier
+//     public:
+
+//     // Data Members
 //     std::string src;
 //     std::string pai;
 //     std::set<std::string> filhos;
@@ -36,17 +36,17 @@ struct {
     // Node(std::string src, std::string pai, std::set<std::string> filhos, int profundidade) :
 		//   src(src), pai(pai), filhos(filhos), profundidade(profundidade)
 	  // {}
-  
-    // Member Functions() 
-    // void printName() 
-    // { 
-    //    std::cout << src; 
+
+    // Member Functions()
+    // void printName()
+    // {
+    //    std::cout << src;
     // }
 
     // void printFilhos(){
     //     for(int i=profundidade; i!=0; i--){
     //         std::cout << "\t";
-    //     } 
+    //     }
     //     std::cout << pai << " =>" << std::endl;
     //     for(std::set<std::string>::iterator it=filhos.begin(); it!=filhos.end(); it++){
     //         for(int i=profundidade+1; i!=0; i--){
@@ -59,7 +59,7 @@ struct {
     // void printPai(){
     //     std::cout << pai;
     // }
-// }; 
+// };
 
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
@@ -78,3 +78,4 @@ void makeDump();
 int dump(std::map<std::string, std::set<std::string>>, std::string);
 std::string cutHead(std::string);
 std::set<std::string> buscaFilhos(std::string, std::string);
+std::string fixRefs(std::string);
