@@ -57,6 +57,7 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
         getchar();
       }
     } else {// procurar href, src e trocar as referencias
+<<<<<<< HEAD
       string name;
       if((*itr).compare("/") == 0){
         name = "index.html";
@@ -78,6 +79,9 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
         cout << "Unable to open file. Proceed?" << endl;
         getchar();
       }
+=======
+      // fixRefs() 
+>>>>>>> c2083739333d5a15948eca612a7e1f3d18199a5e
     }
   }
   return EXIT_SUCCESS;
@@ -94,6 +98,7 @@ string cutHead(string serverRequest) {
   return withouthead;
 }
 
+<<<<<<< HEAD
 string fixRefs(string serverResponse) {
   string buff;
   size_t init_index, leng;
@@ -148,3 +153,13 @@ string fixRefs(string serverResponse) {
 
   return serverResponse;
 }
+=======
+// string fixRefs(string serverResponse) {
+//   while((index = serverResponse.find("href\"", index)) != string::npos){
+//         leng = string("href=\"").length();
+//         size_t size_str = response.find('\"', index + leng) - (index+leng);
+        
+//         index += (size_str + leng + 1);
+//       }
+// }
+>>>>>>> c2083739333d5a15948eca612a7e1f3d18199a5e

@@ -1,102 +1,14 @@
 #include "connection.hpp"
 using namespace std;
 
-class Node
-{ 
-    // Access specifier 
-    public: 
-
-    // Node(std::string src, std::string pai, std::set<std::string> filhos, int profundidade) :
-		//   src(src), pai(pai), filhos(filhos), profundidade(profundidade)
-	  // {}
-  
-    // Data Members 
-    std::string src;
-    std::string pai;
-    std::set<std::string> filhos;
-    int profundidade;
-    bool isHTML;
-};
-
 map<string,set<string>> spyder(string baseURL){
-    // string msg;
-    // set <string> root, visited;
-    // map<string,set<string>> inspectMap;
-    // vector<Node> arvore;   
-
-    // msg = "GET http://" + baseURL + "/ HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-    // cout << msg;
-    // cout << "Proceed?" << endl;
-    // getchar();
-
-    // string response = makeRequest(msg);
-    // root.clear();
-    // constroiReferencia(root, response, string(""));
-    // inspectMap["/"] = root;
-    
-    // Node node_to_insert;
-    // node_to_insert.src = "/";
-    // node_to_insert.pai = "/0";
-    // node_to_insert.filhos = root;
-    // node_to_insert.profundidade = 0;
-    // node_to_insert.isHTML = true;
-    // arvore.push_back(node_to_insert);
-    
-    // visited.clear();
-    // int cont_arvore = 0;
-    // do{
-    //     auto arvore2 = arvore;
-    //     for(vector<Node>::iterator n=arvore2.begin(); n!=arvore2.end(); ++n){
-    //         Node node_to_search;
-    //         node_to_search.src = n->src;
-    //         node_to_search.pai = n->pai;
-    //         node_to_search.filhos = n->filhos;
-    //         node_to_search.profundidade = n->profundidade;
-    //         node_to_search.isHTML = n->isHTML;
-    //         if ((visited.find(node_to_search.src) == visited.end()) && (node_to_search.isHTML)) {
-    //             visited.insert(node_to_search.src);
-    //             for (set<string>::iterator itr = node_to_search.filhos.begin(); 
-    //                  itr != node_to_search.filhos.end(); 
-    //                  ++itr)
-    //             {   
-    //                 if (visited.find(*itr) == visited.end()) {
-    //                     set<string> result = buscaFilhos(*itr, baseURL);
-    //                     visited.insert(*itr);
-    //                     inspectMap[*itr] = result;
-    //                     Node node_to_insert;
-    //                     node_to_insert.src = node_to_search.src;
-    //                     node_to_insert.pai = node_to_search.src;
-    //                     node_to_insert.profundidade = (node_to_search.profundidade + 1);
-    //                     if(result.empty()){
-    //                         node_to_insert.filhos = result;
-    //                         node_to_insert.isHTML = false;
-    //                     }
-    //                     else{
-    //                         node_to_insert.filhos = result;
-    //                         node_to_insert.isHTML = true;
-    //                     }
-    //                     arvore.push_back(node_to_insert);
-    //                     cont_arvore = 0;
-    //                 }
-    //             }
-    //         }
-    //         cont_arvore++;
-    //     }
-    // } while(cont_arvore<=arvore.size()+5);
-    // cout << endl;
-
-    // printTree(inspectMap);
-
-    // return inspectMap;
-
-    
     string msg;
-    set <string> root, result, visited;
+    set <string> root, visited;
     map<string,set<string>> inspectMap;
+    vector<Node> arvore;   
 
     msg = "GET http://" + baseURL + "/ HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-    puts(msg.c_str());
-    
+    cout << msg;
     cout << "Proceed?" << endl;
     getchar();
 
@@ -104,28 +16,57 @@ map<string,set<string>> spyder(string baseURL){
     root.clear();
     constroiReferencia(root, response, string(""));
     inspectMap["/"] = root;
+    
+    Node node_to_insert;
+    node_to_insert.src = "/";
+    node_to_insert.pai = "/0";
+    node_to_insert.filhos = root;
+    node_to_insert.profundidade = 0;
+    node_to_insert.isHTML = true;
+    arvore.push_back(node_to_insert);
+    
     visited.clear();
-    visited.insert("/");
-
-    for (set<string>::iterator itr = root.begin(); itr != root.end(); ++itr)
-    {   
-        auto search = visited.find(*itr);
-        if (search == visited.end()) {
-            result = buscaFilhos(*itr, baseURL);
-            visited.emplace(*itr);
-            inspectMap[*itr] = result;
+    int cont_arvore = 0;
+    do{
+        auto arvore2 = arvore;
+        for(vector<Node>::iterator n=arvore2.begin(); n!=arvore2.end(); ++n){
+            Node node_to_search;
+            node_to_search.src = n->src;
+            node_to_search.pai = n->pai;
+            node_to_search.filhos = n->filhos;
+            node_to_search.profundidade = n->profundidade;
+            node_to_search.isHTML = n->isHTML;
+            if ((visited.find(node_to_search.src) == visited.end()) && (node_to_search.isHTML)) {
+                visited.insert(node_to_search.src);
+                for (set<string>::iterator itr = node_to_search.filhos.begin(); 
+                     itr != node_to_search.filhos.end(); 
+                     ++itr)
+                {   
+                    if (visited.find(*itr) == visited.end()) {
+                        // visited.insert(*itr);
+                        set<string> result = buscaFilhos(*itr, baseURL);
+                        // visited.insert(*itr);
+                        inspectMap[*itr] = result;
+                        Node node_to_insert;
+                        node_to_insert.src = (*itr);
+                        node_to_insert.pai = node_to_search.src;
+                        node_to_insert.profundidade = (node_to_search.profundidade + 1);
+                        if(result.empty()){
+                            node_to_insert.filhos = result;
+                            node_to_insert.isHTML = false;
+                        }
+                        else{
+                            node_to_insert.filhos = result;
+                            node_to_insert.isHTML = true;
+                        }
+                        arvore.push_back(node_to_insert);
+                        cont_arvore = 0;
+                    }
+                }
+            }
+            cont_arvore++;
         }
-        
-        // if(isHTML(*itr)) {
-        //     cout << endl << "Inspecionando " << *itr << endl;
-        //     msg = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-
-        //     response = makeRequest(msg); // returning response.txt
-        //     result2.clear();
-        //     constroiReferencia(result2, response, (*itr));
-        //     inspectMap[*itr] = result2;
-        // }
-    }
+    } while(cont_arvore<=arvore.size()+5);
     cout << endl;
 
     printTree(inspectMap);

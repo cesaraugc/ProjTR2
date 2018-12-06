@@ -22,6 +22,23 @@ struct {
   struct sockaddr_in *serv;
 } freeMemoryList;
 
+class Node
+{ 
+    // Access specifier 
+    public: 
+
+    // Node(std::string src, std::string pai, std::set<std::string> filhos, int profundidade) :
+		//   src(src), pai(pai), filhos(filhos), profundidade(profundidade)
+	  // {}
+  
+    // Data Members 
+    std::string src;
+    std::string pai;
+    std::set<std::string> filhos;
+    int profundidade;
+    bool isHTML;
+};
+
 // class Node
 // {
 //     // Access specifier
