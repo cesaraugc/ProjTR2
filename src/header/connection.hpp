@@ -21,6 +21,46 @@ struct {
   struct sockaddr_in *dest;
   struct sockaddr_in *serv;
 } freeMemoryList;
+
+// class Node
+// { 
+//     // Access specifier 
+//     public: 
+  
+//     // Data Members 
+//     std::string src;
+//     std::string pai;
+//     std::set<std::string> filhos;
+//     int profundidade;
+
+    // Node(std::string src, std::string pai, std::set<std::string> filhos, int profundidade) :
+		//   src(src), pai(pai), filhos(filhos), profundidade(profundidade)
+	  // {}
+  
+    // Member Functions() 
+    // void printName() 
+    // { 
+    //    std::cout << src; 
+    // }
+
+    // void printFilhos(){
+    //     for(int i=profundidade; i!=0; i--){
+    //         std::cout << "\t";
+    //     } 
+    //     std::cout << pai << " =>" << std::endl;
+    //     for(std::set<std::string>::iterator it=filhos.begin(); it!=filhos.end(); it++){
+    //         for(int i=profundidade+1; i!=0; i--){
+    //             std::cout << "\t";
+    //         }
+    //         std::cout << *it << std::endl;
+    //     }
+    // }
+
+    // void printPai(){
+    //     std::cout << pai;
+    // }
+// }; 
+
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
 std::string makeRequest(std::string);
