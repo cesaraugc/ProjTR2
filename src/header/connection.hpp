@@ -33,7 +33,7 @@ class Node
   
     // Data Members 
     std::string src;
-    std::string pai;
+    Node* pai;
     std::set<std::string> filhos;
     int profundidade;
     bool isHTML;
@@ -96,3 +96,5 @@ int dump(std::map<std::string, std::set<std::string>>, std::string);
 std::string cutHead(std::string);
 std::set<std::string> buscaFilhos(std::string, std::string);
 std::string fixRefs(std::string);
+std::vector<Node> generateTree(std::string);
+Node findInTree(std::vector<Node>, std::string);
