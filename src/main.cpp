@@ -5,6 +5,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
   int value=0;
+  string baseURL;
 
   cout << "(1) Inspector\n(2) Spyder\n(3) Dump\n\n Escolha uma opção: ";
   while(true){
@@ -19,9 +20,12 @@ int main(int argc, char *argv[])
       inspector();
       break;
     case 2:
-      spyder();
-      break;
+      cout << "\n\tForneca um dominio valido:\n\n" << endl;
+      cin >> baseURL;
+      spyder(baseURL);
+      break;  
     case 3:
-      dump();
+      makeDump();
+      break;
   }
 }

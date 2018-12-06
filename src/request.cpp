@@ -4,7 +4,6 @@ using namespace std;
 /* Recebe uma string e realiza a requisição */
 std::string makeRequest(std::string msg_string) {
     struct sockaddr_in dest;
-    FILE *fd, *fd1;
     struct hostent *hp;
     char buff[1001];
     int someSocket, len;

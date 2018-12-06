@@ -16,6 +16,7 @@
 #include <fstream>
 #include <streambuf>
 #include <experimental/filesystem>
+#include <map>
 struct {
   struct sockaddr_in *dest;
   struct sockaddr_in *serv;
@@ -25,9 +26,15 @@ void freeMemory();
 std::string makeRequest(std::string);
 std::string getHostValue(std::string);
 int inspector();
-int spyder();
-int dump();
+
+std::map<std::string,std::set<std::string>> spyder(std::string);
 void constroiReferencia(std::set<std::string> & ,std::string, std::string);
 bool isHTML(std::string);
 std::string readFile(std::string);
 bool writeFile(std::string path, std::string content);
+void printTree(std::map<std::string, std::set<std::string>>);
+
+void makeDump();
+int dump(std::map<std::string, std::set<std::string>>, std::string);
+std::string cutHead(std::string);
+std::set<std::string> buscaFilhos(std::string, std::string);

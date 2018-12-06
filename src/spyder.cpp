@@ -1,64 +1,40 @@
 #include "connection.hpp"
 using namespace std;
 
-int spyder(){
-    char baseURL[100];
+map<string,set<string>> spyder(string baseURL){
     string msg;
-    set <string> result, result2;
-    set <set<string>> inspectAll;
-    FILE *fd2;
+    set <string> root, result2, result;
+    map<string,set<string>> inspectMap;
 
-    printf("\n\tForneca um dominio valido:\n\n");
-    scanf("%s", baseURL);
-
-    msg = "GET http://" + string(baseURL) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
+    msg = "GET http://" + baseURL + "/ HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
     puts(msg.c_str());
     
-    printf("Proceed?\n");
+    cout << "Proceed?" << endl;
     getchar();
 
     string response = makeRequest(msg);
+    root.clear();
+    constroiReferencia(root, response, string(""));
+    inspectMap["/"] = root;
 
-    constroiReferencia(result, response, string(""));
-    inspectAll.insert(result);
-    set<string>::iterator itr;
-
-    for (itr = result.begin(); itr != result.end(); ++itr) {
-        cout << *itr << endl;
-    }
-
-    for (itr = result.begin(); itr != result.end(); ++itr)
+    for (set<string>::iterator itr = root.begin(); itr != root.end(); ++itr)
     {
+        result = buscaFilhos(itr*, baseURL);
         if(isHTML(*itr)) {
             cout << endl << "Inspecionando " << *itr << endl;
-            msg = "GET http://" + (*itr) + "/ HTTP/1.1\r\nHost: " + string(baseURL) + "\r\nConnection: close\r\n\r\n";
+            msg = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
 
             response = makeRequest(msg); // returning response.txt
-
+            result2.clear();
             constroiReferencia(result2, response, (*itr));
-            inspectAll.insert(result2);
+            inspectMap[*itr] = result2;
         }
     }
-
-    fd2 = fopen("spyderman.txt","w");
-    size_t index = 0;
-    for(set<string>::iterator i = result.begin(); i != result.end(); ++i){
-        cout << *i << "-->"<< endl;        
-        fprintf(fd2, "%s-->\n", (*i).c_str());
-        if(isHTML(*i)){
-            set<set<string>>::iterator itr2 = inspectAll[index];
-            for (itr = itr2->begin(); itr != itr2->end(); ++itr)
-            {
-                fprintf(fd2, "\t%s\n", (*itr).c_str()); 
-                cout << '\t' << *itr << endl;   
-            }
-            index++;
-        }
-    }
-    fclose(fd2);
     cout << endl;
 
-    return EXIT_SUCCESS;
+    printTree(inspectMap);
+
+    return inspectMap;
 }
 
 
@@ -67,11 +43,15 @@ void constroiReferencia(set<string> & result, string response, string base) {
     string buff;
     size_t init_index = 0;
     size_t leng;
+
     
     while ((init_index = response.find("href=\"", init_index)) != string::npos) {
         leng = string("href=\"").length();
         buff = response.substr(init_index + leng, response.find('\"', init_index + leng) - (init_index + leng));
-        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+        if((leng = buff.find('?')) != string::npos){
+            buff = buff.substr(0, leng);
+        }
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos)
         {
             init_index += buff.length() + 1;
             continue;
@@ -83,7 +63,10 @@ void constroiReferencia(set<string> & result, string response, string base) {
     while ((init_index = response.find("src=\"", init_index)) != string::npos) {
         leng = string("src=\"").length();
         buff = response.substr(init_index + leng, response.find('\"', init_index + leng) - (init_index + leng));
-        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+        if((leng = buff.find('?')) != string::npos){
+            buff = buff.substr(0, leng);
+        }
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos)
         {
             init_index += buff.length() + 1;
             continue;
@@ -96,6 +79,9 @@ void constroiReferencia(set<string> & result, string response, string base) {
     while ((init_index = response.find("url(\"", init_index)) != string::npos) {
         leng = string("url(\"").length();
         buff = response.substr(init_index + leng, response.find('\"', init_index + leng) - (init_index + leng));
+        if((leng = buff.find("?",0)) != string::npos){
+            buff = buff.substr(0, leng);
+        }
         if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
         {
             init_index += buff.length() + 1;
@@ -122,5 +108,41 @@ bool isHTML(string value) {
         return false;
     } else {
         return true;
+    }
+}
+
+
+void printTree(map<string,set<string>> inspectMap){
+    ofstream file;
+    file.open("arvore_hipertextual.txt");
+    // cout << "/ =>" << endl;
+    // file << "/ =>" << endl;
+    for (map<string,set<string>>::iterator it=inspectMap.begin(); it!=inspectMap.end(); ++it){
+        if (it->first == "/") {
+            cout << "/ =>" << endl;
+            file << "/ =>" << endl;
+            continue;
+        }
+        cout << "\t" << it->first << "=> " << endl;
+        file << "\t" << it->first << "=> " << endl;
+        for(set<string>::iterator it2=(it->second).begin(); it2!=(it->second).end(); it2++){
+            cout << "\t\t" << *it2 << endl;
+            file << "\t\t" << *it2 << endl;
+        }
+    }
+
+    file.close();
+}
+
+set<string> buscaFilhos(string url, string baseURL){
+    set<string> result;
+    if(isHTML(url)) {
+        cout << endl << "Inspecionando " << url << endl;
+        string msg = "GET " + (url) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
+
+        string response = makeRequest(msg); // returning response.txt
+        result.clear();
+        constroiReferencia(result, response, (url));
+        return result;
     }
 }
