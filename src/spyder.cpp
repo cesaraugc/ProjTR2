@@ -3,7 +3,7 @@ using namespace std;
 
 map<string,set<string>> spyder(string baseURL){
     string msg;
-    set <string> root, result2, result;
+    set <string> root, result, visited;
     map<string,set<string>> inspectMap;
 
     msg = "GET http://" + baseURL + "/ HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
@@ -16,19 +16,27 @@ map<string,set<string>> spyder(string baseURL){
     root.clear();
     constroiReferencia(root, response, string(""));
     inspectMap["/"] = root;
+    visited.clear();
+    visited.insert("/");
 
     for (set<string>::iterator itr = root.begin(); itr != root.end(); ++itr)
-    {
-        result = buscaFilhos(itr*, baseURL);
-        if(isHTML(*itr)) {
-            cout << endl << "Inspecionando " << *itr << endl;
-            msg = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-
-            response = makeRequest(msg); // returning response.txt
-            result2.clear();
-            constroiReferencia(result2, response, (*itr));
-            inspectMap[*itr] = result2;
+    {   
+        auto search = visited.find(*itr);
+        if (search != visited.end()) {
+            result = buscaFilhos(*itr, baseURL);
+            visited.emplace(*itr);
+            inspectMap[*itr] = result;
         }
+        
+        // if(isHTML(*itr)) {
+        //     cout << endl << "Inspecionando " << *itr << endl;
+        //     msg = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
+
+        //     response = makeRequest(msg); // returning response.txt
+        //     result2.clear();
+        //     constroiReferencia(result2, response, (*itr));
+        //     inspectMap[*itr] = result2;
+        // }
     }
     cout << endl;
 
@@ -51,7 +59,7 @@ void constroiReferencia(set<string> & result, string response, string base) {
         if((leng = buff.find('?')) != string::npos){
             buff = buff.substr(0, leng);
         }
-        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos)
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos||buff.find(".html") != string::npos)
         {
             init_index += buff.length() + 1;
             continue;
@@ -66,7 +74,7 @@ void constroiReferencia(set<string> & result, string response, string base) {
         if((leng = buff.find('?')) != string::npos){
             buff = buff.substr(0, leng);
         }
-        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos)
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos ||buff.find("();") != string::npos||buff.find(".html") != string::npos)
         {
             init_index += buff.length() + 1;
             continue;
@@ -82,7 +90,7 @@ void constroiReferencia(set<string> & result, string response, string base) {
         if((leng = buff.find("?",0)) != string::npos){
             buff = buff.substr(0, leng);
         }
-        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos)
+        if(buff.find("https") != string::npos || buff.find("#") != string::npos ||buff.find("http") != string::npos ||buff.find("//") != string::npos ||buff.find("mailto") != string::npos ||buff.find("www") != string::npos||buff.find("();") != string::npos||buff.find(".html") != string::npos)
         {
             init_index += buff.length() + 1;
             continue;
@@ -98,13 +106,8 @@ bool isHTML(string value) {
     std::size_t indexSlash = 1;
     std::size_t lastValue;
 
-    while(indexSlash != string::npos)
-    {
-        lastValue = indexSlash;
-        indexSlash = value.find('/', lastValue +1);
-    }
-
-    if (value.find('.', lastValue) != string::npos){
+    indexSlash = value.find_last_of('/');
+    if(indexSlash != string::npos && value.find('.', indexSlash) != string::npos){
         return false;
     } else {
         return true;
@@ -115,22 +118,19 @@ bool isHTML(string value) {
 void printTree(map<string,set<string>> inspectMap){
     ofstream file;
     file.open("arvore_hipertextual.txt");
-    // cout << "/ =>" << endl;
-    // file << "/ =>" << endl;
     for (map<string,set<string>>::iterator it=inspectMap.begin(); it!=inspectMap.end(); ++it){
         if (it->first == "/") {
             cout << "/ =>" << endl;
             file << "/ =>" << endl;
             continue;
         }
-        cout << "\t" << it->first << "=> " << endl;
-        file << "\t" << it->first << "=> " << endl;
+        cout << "\t" << it->first << " => " << endl;
+        file << "\t" << it->first << " => " << endl;
         for(set<string>::iterator it2=(it->second).begin(); it2!=(it->second).end(); it2++){
             cout << "\t\t" << *it2 << endl;
             file << "\t\t" << *it2 << endl;
         }
     }
-
     file.close();
 }
 

@@ -30,10 +30,10 @@ int dump(map<string, set<string>> inspectMap, string baseURL) {
   for(set<string>::iterator itr = requests.begin(); itr != requests.end(); ++itr){
     if((*itr)[0] != '/'){
       request = "GET /" + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n"; 
-      foldername = "mkdir -p " + (*itr).substr(0, (*itr).find_last_of('/'));
+      foldername = "mkdir -p " + baseURL + "/" + (*itr).substr(0, (*itr).find_last_of('/'));
     } else {
       request = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n"; 
-      foldername = "mkdir -p " + (*itr).substr(1, (*itr).find_last_of('/'));
+      foldername = "mkdir -p " + baseURL + "/" + (*itr).substr(1, (*itr).find_last_of('/'));
     }
     cout << "Inside dump function\n" << request << "Proceed" <<endl;
     serverResponse = makeRequest(request);
