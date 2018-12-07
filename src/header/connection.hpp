@@ -32,7 +32,7 @@ class Node
     std::set<std::string> filhos;
     int profundidade;
     bool isHTML;
-    bool visited;
+    bool printed;
 
     // Member Functions()
     void printName()
@@ -42,27 +42,28 @@ class Node
 
     std::string printFilhos(){
         std::string msg = "";
-        if(isHTML){
+        if(this->isHTML && (!this->printed)){
             for(int i=profundidade; i!=0; i--){
                 std::cout << "\t";
                 msg += "\t";
             }
             if(pai != NULL){
-                std::cout << (pai)->src << " =>" << std::endl;
-                msg += pai->src + " =>\n";
+                std::cout << (this->pai)->src << " =>" << std::endl;
+                msg += this->pai->src + " =>\n";
             }
             else{
                 std::cout << "/ => " << std::endl;
                 msg+= "/ => \n";
             }
-            for(std::set<std::string>::iterator it=filhos.begin(); it!=filhos.end(); it++){
+            for(std::string it:this->filhos){
                 for(int i=profundidade+1; i!=0; i--){
                     std::cout << "\t";
                     msg += "\t";
                 }
-                std::cout << *it << std::endl;
-                msg += *it+"\n";
+                std::cout << it << std::endl;
+                msg += it+"\n";
             }
+            printed = true;
         }
         return msg;
     }

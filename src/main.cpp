@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
       inspector();
       break;
     case 2:
-      cout << "\n\tForneca um dominio valido: ";
+      cout << " Forneca um dominio valido: ";
       cin >> baseURL;
       cout << endl;
       spyder(baseURL);
