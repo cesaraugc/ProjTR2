@@ -1,15 +1,20 @@
 #include "connection.hpp"
 using namespace std;
 
-map<string,set<string>> spyder(string baseURL){
+
+set<string> spyder(string baseURL){
     
-    vector<Node> arvore = generateTree(baseURL);
+    int levels;
+    cout << "\n\tQuantos níveis deseja buscar? ";
+    cin >> levels;
+    cout << endl;
+
+    vector<Node> arvore = generateTree(baseURL, levels);
     // printTree(arvore);
 
-    // return arvore;
-
-    map<string,set<string>> temp;
-    return temp;
+    set<string> retr;
+    retr = treeToVector(arvore);
+    return retr;
 }
 
 
@@ -81,25 +86,6 @@ bool isHTML(string value) {
 }
 
 
-void printTree(map<string,set<string>> inspectMap){
-    ofstream file;
-    file.open("arvore_hipertextual.txt");
-    for (map<string,set<string>>::iterator it=inspectMap.begin(); it!=inspectMap.end(); ++it){
-        if (it->first == "/") {
-            cout << "/ =>" << endl;
-            file << "/ =>" << endl;
-            continue;
-        }
-        cout << "\t" << it->first << " => " << endl;
-        file << "\t" << it->first << " => " << endl;
-        for(string it2:it->second){
-            cout << "\t\t" << it2 << endl;
-            file << "\t\t" << it2 << endl;
-        }
-    }
-    file.close();
-}
-
 set<string> buscaFilhos(string url, string baseURL){
     set<string> result;
     if(isHTML(url)) {
@@ -113,22 +99,20 @@ set<string> buscaFilhos(string url, string baseURL){
     return result;
 }
 
-vector<Node> generateTree(string baseURL){
+
+vector<Node> generateTree(string baseURL, int levels){
     set <string> root, visited;
-    map<string,set<string>> inspectMap;
     vector<Node> arvore;
 
     string msg = "GET http://" + baseURL + "/ HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-    cout << msg;
-    cout << "Proceed?" << endl;
+    cout << msg << "Proceed?" << endl;
     getchar();
 
     root = buscaFilhos("/", baseURL);
-    inspectMap["/"] = root;
     
     Node node_to_insert;
     node_to_insert.src = "/";
-    node_to_insert.pai = 0x0; // NULL
+    node_to_insert.pai = NULL; // NULL
     node_to_insert.filhos = root;
     node_to_insert.profundidade = 0;
     node_to_insert.isHTML = true;
@@ -137,27 +121,26 @@ vector<Node> generateTree(string baseURL){
     visited.clear();
     int cont_arvore = 0;
     Node node_to_search;
-    int profundidade_arvore;
+    int profundidade_arvore = 0;
     do{
         auto arvore2 = arvore;
         for(Node n:arvore2){
-            node_to_search.src = n.src;
-            node_to_search.pai = n.pai;
-            node_to_search.filhos = n.filhos;
-            node_to_search.profundidade = n.profundidade;
-            node_to_search.isHTML = n.isHTML;
+            node_to_search = n;
+            // node_to_search.src = n.src;
+            // node_to_search.pai = n.pai;
+            // node_to_search.filhos = n.filhos;
+            // node_to_search.profundidade = n.profundidade;
+            // node_to_search.isHTML = n.isHTML;
             // node_to_search = *n;
             if ((visited.find(node_to_search.src) == visited.end()) && (node_to_search.isHTML)) {
                 visited.insert(node_to_search.src);
                 for (string itr:node_to_search.filhos)
                 {   
                     if (visited.find(itr) == visited.end()) {
-                        // visited.insert(*itr);
                         set<string> result = buscaFilhos(itr, baseURL);
-                        inspectMap[itr] = result;
                         Node node_to_insert;
-                        node_to_insert.src = (itr);
                         Node no_pai = findInTree(arvore, node_to_search.src);
+                        node_to_insert.src = (itr);
                         node_to_insert.pai = &no_pai;
                         node_to_insert.filhos = result;
                         node_to_insert.profundidade = (node_to_search.profundidade + 1);
@@ -169,17 +152,20 @@ vector<Node> generateTree(string baseURL){
                         }
                         arvore.push_back(node_to_insert);
                         cont_arvore = 0;
+
+                        if(itr == *(node_to_search.filhos.end())){
+                            profundidade_arvore = node_to_search.profundidade + 1;
+                            levels--;
+                        }
                     }
                 }
-                profundidade_arvore = node_to_search.profundidade + 1;
             }
             cont_arvore++;
         }
-    } while(cont_arvore<=(int)arvore.size());
+    } while(cont_arvore<=(int)arvore.size() && levels>0);
     cout << endl;
 
-    // printTree(inspectMap);
-    printTree2(arvore, profundidade_arvore);
+    printTree(arvore, profundidade_arvore);
 
     return arvore;
 }
@@ -195,6 +181,7 @@ Node findInTree(vector<Node> arvore, string src){
     return j;
 }
 
+
 vector<Node> seekLevel(vector<Node> arvore, int level){
     vector<Node> listNodeLevel;
     for(Node i : arvore ){
@@ -206,14 +193,28 @@ vector<Node> seekLevel(vector<Node> arvore, int level){
 }
 
 
-void printTree2(vector<Node> arvore, int niveis){
+void printTree(vector<Node> arvore, int niveis){
     vector<Node> Nodes;
     int prof = 0;
+    string texto;
+    ofstream file;
+    file.open("arvore_hipertextual.txt");
     do{
         Nodes = seekLevel(arvore, prof);
         for(Node i: Nodes){
-            i.printFilhos();
+            texto = i.printFilhos();
+            file << texto;
         }
         prof++;
-    }while(prof<niveis);
+    }while(prof<=niveis);
+    file.close();
+}
+
+
+set<string> treeToVector(vector<Node> arvore){
+    set<string> srcSet;
+    for(Node i:arvore){
+        srcSet.emplace(i.src);
+    }
+    return srcSet;
 }

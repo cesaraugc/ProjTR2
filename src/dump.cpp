@@ -7,8 +7,9 @@ void makeDump(){
 
   cout << "\n\tForneca um dominio valido:\n\n" << endl;
   cin >> baseURL;
-  map<string, set<string>> inspectMap = spyder(baseURL);
-  dump(inspectMap, baseURL);
+  // map<string, set<string>> inspectMap = spyder(baseURL);
+  set<string> inspectSet = spyder(baseURL);
+  // dump(inspectMap, baseURL);
 }
 
 int dump(map<string, set<string>> inspectMap, string baseURL) {

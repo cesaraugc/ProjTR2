@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <set>
+#include <unordered_set>
 #include <iterator>
 #include <algorithm>
 #include <fstream>
@@ -31,6 +32,7 @@ class Node
     std::set<std::string> filhos;
     int profundidade;
     bool isHTML;
+    bool visited;
 
     // Member Functions()
     void printName()
@@ -38,17 +40,31 @@ class Node
        std::cout << src;
     }
 
-    void printFilhos(){
-        for(int i=profundidade; i!=0; i--){
-            std::cout << "\t";
-        }
-        std::cout << pai << " =>" << std::endl;
-        for(std::set<std::string>::iterator it=filhos.begin(); it!=filhos.end(); it++){
-            for(int i=profundidade+1; i!=0; i--){
+    std::string printFilhos(){
+        std::string msg = "";
+        if(isHTML){
+            for(int i=profundidade; i!=0; i--){
                 std::cout << "\t";
+                msg += "\t";
             }
-            std::cout << *it << std::endl;
+            if(pai != NULL){
+                std::cout << (pai)->src << " =>" << std::endl;
+                msg += pai->src + " =>\n";
+            }
+            else{
+                std::cout << "/ => " << std::endl;
+                msg+= "/ => \n";
+            }
+            for(std::set<std::string>::iterator it=filhos.begin(); it!=filhos.end(); it++){
+                for(int i=profundidade+1; i!=0; i--){
+                    std::cout << "\t";
+                    msg += "\t";
+                }
+                std::cout << *it << std::endl;
+                msg += *it+"\n";
+            }
         }
+        return msg;
     }
 
     void printPai(){
@@ -63,18 +79,20 @@ std::string makeRequest(std::string);
 std::string getHostValue(std::string);
 int inspector();
 
-std::map<std::string,std::set<std::string>> spyder(std::string);
+std::set<std::string> spyder(std::string);
 void constroiReferencia(std::set<std::string> & ,std::string, std::string);
 bool isHTML(std::string);
 std::string readFile(std::string);
 bool writeFile(std::string path, std::string content);
-void printTree(std::map<std::string, std::set<std::string>>);
+std::set<std::string> buscaFilhos(std::string, std::string);
+std::vector<Node> generateTree(std::string, int);
+Node findInTree(std::vector<Node>, std::string);
+std::vector<Node> seekLevel(std::vector<Node>, int);
+void printTree(std::vector<Node>, int);
+std::set<std::string> treeToVector(std::vector<Node>);
 
 void makeDump();
 int dump(std::map<std::string, std::set<std::string>>, std::string);
 std::string cutHead(std::string);
-std::set<std::string> buscaFilhos(std::string, std::string);
+
 std::string fixRefs(std::string);
-std::vector<Node> generateTree(std::string);
-Node findInTree(std::vector<Node>, std::string);
-std::vector<Node> seekLevel(std::vector<Node>, int);
