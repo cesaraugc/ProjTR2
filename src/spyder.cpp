@@ -179,6 +179,7 @@ vector<Node> generateTree(string baseURL){
     cout << endl;
 
     // printTree(inspectMap);
+    printTree2(arvore, profundidade_arvore);
 
     return arvore;
 }
