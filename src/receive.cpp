@@ -1,7 +1,7 @@
 #include "connection.hpp"
 
 int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
-
+  extern struct freeMemoryList fml;
   struct sockaddr_in *serv; /* socket info about our server */
   int sckt;            /* socket used to listen for incoming connections */
 
@@ -10,7 +10,7 @@ int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
     freeMemory();
     exit(0);
   }
-  freeMemoryList.serv = serv;
+  fml.serv = serv;
 
   memset(serv, 0, sizeof(struct sockaddr_in));/* zero the struct before filling the fields */
   serv->sin_family = AF_INET;                /* set the type of connection to TCP/IP */
@@ -29,9 +29,10 @@ int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
 }
 
 void freeMemory () {
-  free(freeMemoryList.serv);
-  free(freeMemoryList.dest);
+  extern struct freeMemoryList fml;
+  free(fml.serv);
+  free(fml.dest);
 
-  freeMemoryList.serv = NULL;
-  freeMemoryList.dest = NULL;
+  fml.serv = NULL;
+  fml.dest = NULL;
 }

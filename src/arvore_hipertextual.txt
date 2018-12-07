@@ -1,5 +1,3 @@
 / =>
 	estilo.css => 
-		estilo.css
 	pudim.jpg => 
-		pudim.jpg

@@ -21,7 +21,6 @@ std::string makeRequest(std::string msg_string) {
     memset(&dest, 0, sizeof(dest));                   /* zero the struct */
     dest.sin_family = AF_INET;
     dest.sin_addr.s_addr = inet_addr(inet_ntoa(*(struct in_addr *)hp->h_addr));
-    // dest.sin_addr.s_addr = htonl(INADDR_LOOPBACK); /* set destination IP number - localhost, 127.0.0.1 */
     dest.sin_port = htons(80);                        /* set destination port number */
 
     if(connect(someSocket, (struct sockaddr *)&dest, sizeof(struct sockaddr_in)) == -1){

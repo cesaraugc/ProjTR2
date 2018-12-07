@@ -1,7 +1,9 @@
 #include "connection.hpp"
 
-#define PORTNUM 8226
+#define PORTNUM 8228
 #define MAXRCVLEN 2000
+
+struct freeMemoryList fml;
 
 using namespace std;
 
@@ -18,7 +20,7 @@ int inspector() {
     freeMemory();
     exit(0);
   }
-  freeMemoryList.dest = dest;
+  fml.dest = dest;
   cout << "Aguardando...";
   int consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
   int len, i = 10;
@@ -45,8 +47,10 @@ int inspector() {
     system("nano response.txt");
     fd = fopen("response.txt","r");
     printf("Writing back:\n");
-    while((fgets(buff, 200, fd)) != NULL){
+    fgets(buff, 200, fd);
+    while(!feof(fd)){
       write(consocket, buff, strlen(buff));
+      fgets(buff, 200, fd);
     }
     printf("Done\n");
     fclose(fd);

@@ -70,7 +70,7 @@ void constroiReferencia(set<string> & result, string response, string base) {
 
 /* Verifica se um caminho é HTML para saber se deve ser inspecionado */
 bool isHTML(string value) {
-    std::size_t indexSlash = 1;
+    size_t indexSlash = 1;
 
     indexSlash = value.find_last_of('/');
     if(indexSlash != string::npos && value.find('.', indexSlash) != string::npos){
@@ -92,9 +92,9 @@ void printTree(map<string,set<string>> inspectMap){
         }
         cout << "\t" << it->first << " => " << endl;
         file << "\t" << it->first << " => " << endl;
-        for(set<string>::iterator it2=(it->second).begin(); it2!=(it->second).end(); it2++){
-            cout << "\t\t" << *it2 << endl;
-            file << "\t\t" << *it2 << endl;
+        for(string it2:it->second){
+            cout << "\t\t" << it2 << endl;
+            file << "\t\t" << it2 << endl;
         }
     }
     file.close();
@@ -123,14 +123,12 @@ vector<Node> generateTree(string baseURL){
     cout << "Proceed?" << endl;
     getchar();
 
-    string response = makeRequest(msg);
-    root.clear();
-    constroiReferencia(root, response, string(""));
+    root = buscaFilhos("/", baseURL);
     inspectMap["/"] = root;
     
     Node node_to_insert;
     node_to_insert.src = "/";
-    node_to_insert.pai = NULL;
+    node_to_insert.pai = 0x0; // NULL
     node_to_insert.filhos = root;
     node_to_insert.profundidade = 0;
     node_to_insert.isHTML = true;
@@ -138,28 +136,27 @@ vector<Node> generateTree(string baseURL){
     
     visited.clear();
     int cont_arvore = 0;
+    Node node_to_search;
+    int profundidade_arvore;
     do{
         auto arvore2 = arvore;
-        for(vector<Node>::iterator n=arvore2.begin(); n!=arvore2.end(); ++n){
-            Node node_to_search;
-            node_to_search.src = n->src;
-            node_to_search.pai = n->pai;
-            node_to_search.filhos = n->filhos;
-            node_to_search.profundidade = n->profundidade;
-            node_to_search.isHTML = n->isHTML;
+        for(Node n:arvore2){
+            node_to_search.src = n.src;
+            node_to_search.pai = n.pai;
+            node_to_search.filhos = n.filhos;
+            node_to_search.profundidade = n.profundidade;
+            node_to_search.isHTML = n.isHTML;
             // node_to_search = *n;
             if ((visited.find(node_to_search.src) == visited.end()) && (node_to_search.isHTML)) {
                 visited.insert(node_to_search.src);
-                for (set<string>::iterator itr = node_to_search.filhos.begin(); 
-                     itr != node_to_search.filhos.end(); 
-                     ++itr)
+                for (string itr:node_to_search.filhos)
                 {   
-                    if (visited.find(*itr) == visited.end()) {
+                    if (visited.find(itr) == visited.end()) {
                         // visited.insert(*itr);
-                        set<string> result = buscaFilhos(*itr, baseURL);
-                        inspectMap[*itr] = result;
+                        set<string> result = buscaFilhos(itr, baseURL);
+                        inspectMap[itr] = result;
                         Node node_to_insert;
-                        node_to_insert.src = (*itr);
+                        node_to_insert.src = (itr);
                         Node no_pai = findInTree(arvore, node_to_search.src);
                         node_to_insert.pai = &no_pai;
                         node_to_insert.filhos = result;
@@ -174,21 +171,48 @@ vector<Node> generateTree(string baseURL){
                         cont_arvore = 0;
                     }
                 }
+                profundidade_arvore = node_to_search.profundidade + 1;
             }
             cont_arvore++;
         }
-    } while(cont_arvore<=arvore.size()+5);
+    } while(cont_arvore<=(int)arvore.size());
     cout << endl;
 
-    printTree(inspectMap);
+    // printTree(inspectMap);
 
     return arvore;
 }
 
+
 Node findInTree(vector<Node> arvore, string src){
-    for(vector<Node>::iterator i = arvore.begin(); i != arvore.end(); i++){
-        if(i->src == src){
-            return *i;
+    for(Node i :arvore){
+        if(i.src == src){
+            return i;
         }
     }
+    Node j;
+    return j;
+}
+
+vector<Node> seekLevel(vector<Node> arvore, int level){
+    vector<Node> listNodeLevel;
+    for(Node i : arvore ){
+        if (i.profundidade == level){
+            listNodeLevel.push_back(i);
+        }
+    }
+    return listNodeLevel;
+}
+
+
+void printTree2(vector<Node> arvore, int niveis){
+    vector<Node> Nodes;
+    int prof = 0;
+    do{
+        Nodes = seekLevel(arvore, prof);
+        for(Node i: Nodes){
+            i.printFilhos();
+        }
+        prof++;
+    }while(prof<niveis);
 }
