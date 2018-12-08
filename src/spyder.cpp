@@ -175,7 +175,7 @@ vector<Node> generateTree(string baseURL, int levels){
 
 
 Node findInTree(vector<Node> arvore, string src){
-    for(Node i :arvore){
+    for(Node i:arvore){
         if(i.src == src){
             return i;
         }
@@ -205,7 +205,7 @@ void printTree(vector<Node> arvore, int niveis){
     ofstream file;
     file.open("arvore_hipertextual.txt");
     int p=0;
-    while(niveis>0){
+    do{
         nodes = seekLevel(arvore, p);
         for(Node i: nodes){
             texto = i.printFilhos();
@@ -213,7 +213,7 @@ void printTree(vector<Node> arvore, int niveis){
         }
         niveis--; 
         p++;
-    }
+    }while(niveis>0);
     file.close();
 }
 

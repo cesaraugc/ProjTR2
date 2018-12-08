@@ -1,15 +1,14 @@
 #include "connection.hpp"
 
-#define PORTNUM 8228
 #define MAXRCVLEN 2000
 
-struct freeMemoryList fml;
 
+struct freeMemoryList fml;
 using namespace std;
 
-int inspector() {
+int inspector(int PORTNUM) {
   struct sockaddr_in *dest; /* socket info about the machine connecting to us */
-  char rmsg[MAXRCVLEN], buff[200];
+  char rmsg[MAXRCVLEN];
   socklen_t socksize = sizeof(struct sockaddr_in);
   FILE* fd;
   cout << "Tentando criar socket..." << endl;
@@ -27,8 +26,8 @@ int inspector() {
 
   while(--i)
   {
-    if((len = read(consocket, rmsg, MAXRCVLEN)) == 0){
-      cout << "Connection close by remote host" << endl;
+    if((len = read(consocket, rmsg, MAXRCVLEN)) <= 0){
+      cout << "Connection close by remote host or some error ocurred" << endl;
       break;
     }
     rmsg[len] = '\0';
@@ -47,15 +46,16 @@ int inspector() {
     system("nano response.txt");
     fd = fopen("response.txt","r");
     printf("Writing back:\n");
-    fgets(buff, 200, fd);
-    while(!feof(fd)){
-      write(consocket, buff, strlen(buff));
-      fgets(buff, 200, fd);
-    }
+    response = readFile("response.txt");
+    write(consocket, response.c_str(), response.length());
+    // while(!feof(fd)){
+    //   write(consocket, buff, strlen(buff));
+    //   fgets(buff, 200, fd);
+    // }
     printf("Done\n");
     fclose(fd);
-    close(consocket);
-    consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
+    // close(consocket);
+    // consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
   }
   close(consocket);
   close(ourSocket);
@@ -70,7 +70,7 @@ int inspector() {
 std::string readFile(string path)
 { 
     string result;
-    ifstream ifs(path);
+    ifstream ifs(path, ios::binary);
     string str(istreambuf_iterator<char>{ifs}, {});
 
     return str;
@@ -78,7 +78,7 @@ std::string readFile(string path)
 
 bool writeFile(string path, string content){
     ofstream file;
-    file.open (path);
+    file.open (path, ios::binary);
     file << content;
     file.close();
 

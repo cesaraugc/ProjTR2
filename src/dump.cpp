@@ -7,28 +7,20 @@ void makeDump(){
 
   cout << "\n\tForneca um dominio valido:\n\n" << endl;
   cin >> baseURL;
-  // map<string, set<string>> inspectMap = spyder(baseURL);
   set<string> inspectSet = spyder(baseURL);
-  // dump(inspectMap, baseURL);
+  dump(inspectSet, baseURL);
 }
 
-int dump(map<string, set<string>> inspectMap, string baseURL) {
+int dump(set<string> requests, string baseURL) {
 
   string request;
   string serverResponse;
   string systemCommand;
   string filename;
   string foldername = "mkdir -p " + baseURL;
-  set <string> requests;
   ofstream file;
 
   system(foldername.c_str());
-
-  for (map<string,set<string>>::iterator it=inspectMap.begin(); it!=inspectMap.end(); ++it){
-    for(set<string>::iterator itr=(it->second).begin(); itr!=(it->second).end(); itr++){
-      requests.emplace(*itr);
-    }
-  }
 
   for(set<string>::iterator itr = requests.begin(); itr != requests.end(); ++itr){
     if((*itr)[0] != '/'){

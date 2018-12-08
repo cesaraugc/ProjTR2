@@ -20,7 +20,11 @@ int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
   sckt = socket(AF_INET, SOCK_STREAM, 0);
 
   /* bind serv information to mysocket */
-  bind(sckt, (struct sockaddr *)serv, sizeof(struct sockaddr));
+  if((bind(sckt, (struct sockaddr *)serv, sizeof(struct sockaddr))) == -1){
+    std::cerr << "Erro na criação do socket. Escolha outra porta." << std::endl;
+    freeMemory();
+    exit(1);
+  }
 
   /* start listening, allowing a queue of up to 1 pending connection */
   listen(sckt, parallelConnections);

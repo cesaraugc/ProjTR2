@@ -6,7 +6,7 @@ std::string makeRequest(std::string msg_string) {
     struct sockaddr_in dest;
     struct hostent *hp;
     char buff[1001];
-    int someSocket, len;
+    int someSocket, len, bytes_read = 0;
     string response;
 
     string host_name = getHostValue(msg_string);
@@ -34,8 +34,10 @@ std::string makeRequest(std::string msg_string) {
     while((len = read(someSocket, buff, 1000)) > 0){
       buff[len] = '\0';
       response += string(buff);
+      bytes_read += len;
     }
-    printf("Response received\n");
+    cout << response << endl;
+    printf("%d bytes of response received\n", bytes_read);
     close(someSocket);
 
     return response;

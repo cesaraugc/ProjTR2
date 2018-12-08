@@ -1,35 +1,28 @@
 HTTP/1.1 200 OK
-Date: Fri, 07 Dec 2018 13:54:04 GMT
+Date: Sat, 08 Dec 2018 02:49:33 GMT
 Server: Apache/2.4.34 (Amazon) OpenSSL/1.0.2k-fips PHP/5.5.38
 Last-Modified: Wed, 23 Dec 2015 01:17:36 GMT
-ETag: "1b9-527867cc9137d"
+ETag: "6bc1-527867cceef82"
 Accept-Ranges: bytes
-Content-Length: 441
+Content-Length: 27585
 Keep-Alive: timeout=5, max=100
 Connection: Keep-Alive
-Content-Type: text/css
+Content-Type: image/jpeg
 
-body{
-    background-color: #d0d0d0;
-    margin: 0px;
-    padding: 0px;
-}
-.container{
-    width: 650px;
-    background-color: #FFF;
-    position: relative;
-    padding: 40px 70px;
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 50%;
-    margin-left: -395px;
-}
-.container .email{
-    margin-top: 5px;
-}
-.container .email a{
-    font-family: verdana, arial;
-    font-size: 11px;
-    padding-top: 10px;
-}
+ÿØÿà¤@j`*d‰cš‚	_˜qê(*zzÓÙ1L@@ÇQ(èÜçÊ€%WURx¡sÇ_J0ÀàÒ„†Œœóô¦(R¹Ï€”$AéíHD…H<·ĞúSNzar;ÿ†‘4× dƒÿÛÚ—vÏAéQ‚"”ğ=)ÄädããÁ¤ìŒgŸÖ”Z
+ààÒã¨ô¤Pwã¥(äL×4ìu¥qŠxÇ"“>Ô‘GCé@Çq@¥¦hÁç¥ õ¤£'¸£hÓ÷½iêsOíRyêäö©q¹-“€®äŠùbñYRß4S7ëMŸPi‚{SP'R	e õéTäº‘	‰üi²ÊN@êOZˆ£78«JÃÕ’ÙX‘’)MËãğ:â£Xu©Ä@¨È«æ ä»!AGÒšúƒW4Æ‹´ò¦”ÜÑp"1©8¨ÌCš´Q@Ï4Ò óŠQxH'VXWÜ1•‹p<S¸š+åÕxbGÖˆîd‚9éR7#šÌ9‡2`‚0)€pyíRg#i$ŸziAÛŠVHÊœq@$)“ÚœšaçÒ™¢B‘ŞšNzRƒŠã‚?
+HiÀ˜Äã•!TOÏL`P;ÆOjÄJ\äSb@NOÓeQ}ÍR%Œ»0ÏNÔª=©Ì	ç9µ $gúU¦dÄ•€Nµ@T#Š’S–Q@ÅY%'R¤ŒTlƒo½]x·Ç½Vt (°Y1€x¤#;&Iç¡dbyR @ óM#98§çéLbrGò¤1Œ3‘H0rA÷§‚i¤€OZ‰TŒsN?ÓšM¤ƒÚ”Œq“JdØnÒ	æƒëšpSéô§ˆØò+”€}HqÒ•#çŸÆ¬¢€½9õ¤ØĞ‹
+	=y«½¨3ÜÕ¨¡ÉsRÙHlp9Á«‘[:sV ¶'=^ŠdSbj9d_(¨q<Òš!°IrNO^”‡•8ÉÏL
+fy4£¡õ¤À4ñ€4AÅ ÓÉõÍ5×#Ò¢«g¸ª%£V0²N}ªbœUm¤œŠ·¼p3E„EÈmµ&21Ş‡L¶FhgÍ×†9#°zU{­°·Êx=*a.[w¯Z†ø	9é\–ji7!”.y«º·›‘zÚ¹Í:S dàŸZëba<<’)™µc’óÈr§‚89¡Ê€EK©Ù´3`ŒÂªÚJCàúÑr¢hP¸ÁàUë™C1$çšyÁ9$cò¦!äœt¨ß‚EIœ*7$õ„,[LJ˜»cŠV!°Aü)Ö ä «)Cò¢’}Eh¦ÒQ†$ƒùSf,8â§txã¾:RHğŒAL›$I’Äí{ŠtP‡‘Cp	ëVn Ã
+zô¢â±Im‹å³€	ÅDÈÁE[‰Õ0IïÒ§òÄ§r¨#¾±œˆî	P=jÄVê\÷9«*Š
+O)µ-ÈcïíF È•á`;0*±ÂeTŸR*d3™8ÍG.ò½iˆ¥ dœ|§ŸÊ´à”ˆN8úh@à¸^§ÔX‹¢¶ÓĞâ€",	çƒïUçRó_Ò§HĞÈO¨Í”UvêçíHâÆéÒŒgŠVàh8 ÑzÒ‘s@'4¥€sAC¥8Œ(çàzà~tnçäQÁö¥k'
+[œõÅY³Q¸’*û*hİIÚÔÅbôR+nÁî*Á|(jˆˆTä{S„§8Á'¥°Ò‘š‰Üœ’x÷ ğ2ÇªK6r:­$€™ç j¬ï•õ'¥&¡'$Ñ°Ğ»*ã«3Œæ“ËF84À<~t®;:hIÆsÍt±[ÄaG#Ò¸ËyL3)	æ»;9CÛ†Ïj–®D®ˆ®"UCÀÀö¬‚IÊÔñ[z”ê‘9¬ı9VYK	Í+®K˜ì‡púT®íš	9ÇµuˆÊ±‚°õ;ŒÕ)”¤îd:ÔS°ÇÒ£`ÈÄM2JP‘Ş¦œÒ‘Ç½!Ø¤Èrx«ÖwòÀ…d•A“~”Ò€g§q8§¹-Íì“ç¦=êş†	9ç­c‘Ç5ĞèÈ?¥Ü‡G$Œ-P¸µvbzµªJ„f£w\à‘ÍG+1æ±ÌßÂĞ®H zÖrI3šè5¹Äv“ù×:ƒÀ«I—\°±àg¥)ô¢·N‚ƒ!c“CFªäÀBäÔŞS1èj&¿”æ¨•ÆH94àä‘T¤C¦‡ÊòJrÌOÖ #‚GåO$¹ P#!²H¡Èj)aˆÏó§(ÁÉ"¥a‘…GP*nU‡ Œ
+”ÎvàT*IÎ:T˜¡Å1n7$“Ö—õ§8§YŸ/{p1EÇb€(,y4æE(y¥*©OµMÉh°v–:T$œ{
+vğ€ÔÊH*:
+WD’Äv¥^j—•!'åğ©’*,ˆàô_ÌTnNvæ¦pÈx5,y"²hÑ2I#íQKè*bäšˆ¡=MCF‰‰Œ“HF=<&	4×¼ö¶4LAƒŸçN3DÅl€@ê)#''4ØzĞ&ZÈTNG|TFF'"’G4Åa	 ´&KPç'ò©`çûQq’=iÀÇçM#©ëõ¥ÈÒàài„ÔŸÎpI8<{SKmâ¤8‘P¶2i*¹éÆ)wí'½B †# ÓBh°²ÔŠ{¸UÈ?…T€4¤2x¢Â¹e'ÅN©âªõn qNÂ»,¥¸#&•àSÀÆj´@—“VÚ@OŠ,‚åc'Å#DÊ¤ÇlU­ãm5ˆeÀâ–‚Ô#¸#T¨›AZpr*Lõ¤Æ†¨É<Ó˜qÅ4ğw
+~I^?‘Ü@¼åiH9Îj Ì	ÀãµHCdéJÂ¹ºÀ9â&üñR$ ¯+Ç¿4Ó »cN2ØS^–ç™±±’ßw°è* 4Ü[õ«Œá°”AQ˜£›†ÎáI¤ep¤˜ÆIõ§Ü<aÎ\Ü
+ˆÀ!Rb`O ¨ŒÍ€S§'S}Õ$¬Ôçt
+›l*±FƒäfÏ°©‘”§ÌÊ£°ï@XNBÀè*¤±»U6R+EB•ùO©¨&NççÑi4Æ0£–çëQbO>æ®<Ã!H¦¡bT
+Iõ¬Ú4‹+¶rT.}ûS|³Ôòj}„ÌF{Le,qœ{
+†c"9àdPIÆÈ9¨­’APGÒ„
+¹QŒÓğ·­&@ÉÈR1Á§€qŒSHô€hàŠ	`M/@F~”

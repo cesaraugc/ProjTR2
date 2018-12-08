@@ -73,12 +73,12 @@ class Node
     }
 };
 
-
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
 std::string makeRequest(std::string);
 std::string getHostValue(std::string);
-int inspector();
+int inspector(int);
+int proxy(int);
 
 std::set<std::string> spyder(std::string);
 void constroiReferencia(std::set<std::string> & ,std::string, std::string);
@@ -93,7 +93,7 @@ void printTree(std::vector<Node>, int);
 std::set<std::string> treeToVector(std::vector<Node>);
 
 void makeDump();
-int dump(std::map<std::string, std::set<std::string>>, std::string);
+int dump(std::set<std::string>, std::string);
 std::string cutHead(std::string);
 
 std::string fixRefs(std::string);
