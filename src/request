@@ -1,0 +1,9 @@
+GET http://pudim.com.br/pudim.jpg HTTP/1.1
+Host: pudim.com.br
+User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0
+Accept: */*
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Cookie: _ga=GA1.3.147105223.1543861959; _gid=GA1.3.1161369725.1544185728
+

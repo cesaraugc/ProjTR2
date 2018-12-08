@@ -12,7 +12,7 @@ int inspector(int PORTNUM) {
   socklen_t socksize = sizeof(struct sockaddr_in);
   FILE* fd;
   cout << "Tentando criar socket..." << endl;
-  int ourSocket = createNewSocket(PORTNUM, 1);
+  int ourSocket = createNewSocket(PORTNUM, 2);
 
   if ((dest = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in))) == NULL) {
     printf("Erro de alocacao. Abortando\n");
@@ -32,28 +32,30 @@ int inspector(int PORTNUM) {
     }
     rmsg[len] = '\0';
     // printf("%s\n", rmsg);
-    fd = fopen("request.txt","w");
+    fd = fopen("request","w");
     fprintf(fd, "%s", rmsg);
     fclose(fd);
-    system("nano request.txt");
+    system("nano request");
     // getchar();
 
-    string request = readFile("request.txt");
-    string response = makeRequest(request);
+    string request = readTextFile("request");
+    vector <unsigned char> response = makeRequest(request);
 
-    writeFile("response.txt", response);
+    writeFile("response", response);
     //Expecting response.txt to contains response from server
-    system("nano response.txt");
-    fd = fopen("response.txt","r");
+    system("nano response");
     printf("Writing back:\n");
-    response = readFile("response.txt");
-    write(consocket, response.c_str(), response.length());
+    response = readBinaryFile("response");
+    unsigned char buff[response.size()];
+    for(size_t i = 0; i < response.size(); ++i){
+      buff[i] = response[i];
+    }
+    write(consocket, buff, response.size());
     // while(!feof(fd)){
     //   write(consocket, buff, strlen(buff));
     //   fgets(buff, 200, fd);
     // }
     printf("Done\n");
-    fclose(fd);
     // close(consocket);
     // consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
   }
@@ -67,7 +69,34 @@ int inspector(int PORTNUM) {
 }
 
 
-std::string readFile(string path)
+std::vector<unsigned char> readBinaryFile(string filename)
+{
+    // open the file:
+    std::ifstream file(filename, std::ios::binary);
+
+    // Stop eating new lines in binary mode!!!
+    file.unsetf(std::ios::skipws);
+
+    // get its size:
+    std::streampos fileSize;
+
+    file.seekg(0, std::ios::end);
+    fileSize = file.tellg();
+    file.seekg(0, std::ios::beg);
+
+    // reserve capacity
+    std::vector<unsigned char> vec;
+    vec.reserve(fileSize);
+
+    // read the data:
+    vec.insert(vec.begin(),
+               std::istream_iterator<unsigned char>(file),
+               std::istream_iterator<unsigned char>());
+
+    return vec;
+}
+
+std::string readTextFile(string path)
 { 
     string result;
     ifstream ifs(path, ios::binary);
@@ -76,11 +105,10 @@ std::string readFile(string path)
     return str;
 }
 
-bool writeFile(string path, string content){
-    ofstream file;
-    file.open (path, ios::binary);
-    file << content;
-    file.close();
+bool writeFile(string path, vector<unsigned char> dados){
+    ofstream fout(path, ios::out | ios::binary);
+    fout.write((char*)&dados[0], dados.size() * sizeof(unsigned char));
+    fout.close();
 
     return true;
 }

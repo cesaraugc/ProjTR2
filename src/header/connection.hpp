@@ -75,7 +75,7 @@ class Node
 
 int createNewSocket(uint16_t, uint16_t);
 void freeMemory();
-std::string makeRequest(std::string);
+std::vector <unsigned char> makeRequest(std::string);
 std::string getHostValue(std::string);
 int inspector(int);
 int proxy(int);
@@ -83,8 +83,9 @@ int proxy(int);
 std::set<std::string> spyder(std::string);
 void constroiReferencia(std::set<std::string> & ,std::string, std::string);
 bool isHTML(std::string);
-std::string readFile(std::string);
-bool writeFile(std::string path, std::string content);
+std::vector<unsigned char> readBinaryFile(std::string);
+std::string readTextFile(std::string);
+bool writeFile(std::string, std::vector<unsigned char>);
 std::set<std::string> buscaFilhos(std::string, std::string);
 std::vector<Node> generateTree(std::string, int);
 Node findInTree(std::vector<Node>, std::string);

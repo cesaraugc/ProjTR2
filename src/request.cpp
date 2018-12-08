@@ -2,12 +2,13 @@
 using namespace std;
 
 /* Recebe uma string e realiza a requisição */
-std::string makeRequest(std::string msg_string) {
+vector <unsigned char> makeRequest(std::string msg_string) {
     struct sockaddr_in dest;
     struct hostent *hp;
-    char buff[1001];
+    unsigned char buff;
+    //vector <unsigned char> buff (1000);
     int someSocket, len, bytes_read = 0;
-    string response;
+    vector <unsigned char> response;
 
     string host_name = getHostValue(msg_string);
     if((hp = gethostbyname(host_name.c_str())) == NULL){
@@ -31,12 +32,10 @@ std::string makeRequest(std::string msg_string) {
     printf("Connect on host: %s\n", inet_ntoa(dest.sin_addr));
     write(someSocket, msg_string.c_str(), msg_string.length());
 
-    while((len = read(someSocket, buff, 1000)) > 0){
-      buff[len] = '\0';
-      response += string(buff);
-      bytes_read += len;
+    while((len = read(someSocket, &buff, 1)) > 0){
+      response.push_back(buff);
+      bytes_read ++;
     }
-    cout << response << endl;
     printf("%d bytes of response received\n", bytes_read);
     close(someSocket);
 
