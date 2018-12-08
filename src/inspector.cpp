@@ -2,7 +2,6 @@
 
 #define MAXRCVLEN 2000
 
-
 struct freeMemoryList fml;
 using namespace std;
 
@@ -15,7 +14,7 @@ int inspector(int PORTNUM) {
   int ourSocket = createNewSocket(PORTNUM, 2);
 
   if ((dest = (struct sockaddr_in*)malloc(sizeof(struct sockaddr_in))) == NULL) {
-    printf("Erro de alocacao. Abortando\n");
+    cout << "Erro de alocacao. Abortando\n";
     freeMemory();
     exit(0);
   }
@@ -27,10 +26,18 @@ int inspector(int PORTNUM) {
   while(--i)
   {
     if((len = read(consocket, rmsg, MAXRCVLEN)) <= 0){
-      cout << "Connection close by remote host or some error ocurred" << endl;
-      break;
+      cout << "Connection close by remote host or some error ocurred. Accepting new connections." << endl;
+      close(consocket);
+      consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
+      continue;
     }
     rmsg[len] = '\0';
+    if(strstr(rmsg, "POST") != NULL){
+      cout << "I am not accepting POST messages. Plese fuck yourself" << endl;
+      close(consocket);
+      consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
+      continue;
+    }
     // printf("%s\n", rmsg);
     fd = fopen("request","w");
     fprintf(fd, "%s", rmsg);
@@ -44,20 +51,14 @@ int inspector(int PORTNUM) {
     writeFile("response", response);
     //Expecting response.txt to contains response from server
     system("nano response");
-    printf("Writing back:\n");
+    cout << "Writing back:" << endl;
     response = readBinaryFile("response");
     unsigned char buff[response.size()];
     for(size_t i = 0; i < response.size(); ++i){
       buff[i] = response[i];
     }
     write(consocket, buff, response.size());
-    // while(!feof(fd)){
-    //   write(consocket, buff, strlen(buff));
-    //   fgets(buff, 200, fd);
-    // }
-    printf("Done\n");
-    // close(consocket);
-    // consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
+    cout << "Done\n";
   }
   close(consocket);
   close(ourSocket);

@@ -1,7 +1,12 @@
 / => 
-	Google-scholar-favicon-negativ.gif
-	Microsoft-favicon.gif
-	Pfeil_gn.gif
-	Pfeil_gn_n_links.gif
-	amazon.gif
-	
+	/counterdigits/0.gif
+	/counterdigits/4.gif
+	/counterdigits/6.gif
+	/counterdigits/7.gif
+	/counterdigits/8.gif
+	/counterdigits/9.gif
+	TU_KL_Logo-r.jpg
+	ball2.gif
+	bar_left.gif
+	bar_right_d.gif
+	x_drehend_platte.gif

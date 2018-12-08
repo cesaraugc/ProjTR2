@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
 
   switch (value) {
     case 1:
-      /* proxy(portnum); */
+      proxy(portnum);
       break;
     case 2:
       inspector(portnum);
@@ -49,7 +49,7 @@ int main(int argc, char* argv[])
       cout << " Forneca um dominio valido: ";
       cin >> baseURL;
       cout << endl;
-      //spyder(baseURL);
+      spyder(baseURL);
       break;  
     case 4:
       //makeDump();
