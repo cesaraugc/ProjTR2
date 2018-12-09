@@ -32,7 +32,6 @@ class Node
     std::set<std::string> filhos;
     int profundidade;
     bool isHTML;
-    bool printed;
 
     // Member Functions()
     void printName()
@@ -40,33 +39,36 @@ class Node
        std::cout << src;
     }
 
-    std::string printFilhos(){
-        std::string msg = "";
-        if(this->isHTML && (!this->printed)){
-            for(int i=profundidade; i!=0; i--){
-                std::cout << "\t";
-                msg += "\t";
-            }
-            if(pai != "\0"){
-                std::cout << (this->pai) << " =>" << std::endl;
-                msg += this->pai + " =>\n";
-            }
-            else{
-                std::cout << "/ => " << std::endl;
-                msg+= "/ => \n";
-            }
-            for(std::string it:this->filhos){
-                for(int i=profundidade+1; i!=0; i--){
-                    std::cout << "\t";
-                    msg += "\t";
-                }
-                std::cout << it << std::endl;
-                msg += it+"\n";
-            }
-            printed = true;
-        }
-        return msg;
-    }
+    // std::string printFilhos(std::vector<Node> arvore){
+    //     std::string msg = "";
+    //     for(int i=profundidade; i!=0; i--){
+    //         std::cout << "\t";
+    //         msg += "\t";
+    //     }
+    //     if(this->isHTML){
+    //         if(this->filhos.size() >0){
+    //             std::cout << (this->src) << " =>" << std::endl;
+    //             msg += this->src + " =>\n";
+    //             for(std::string it:this->filhos){
+    //                 Node filho = findInTree(arvore, it);
+    //                 if(filho.filhos.size() == 0){ /* se tiver filhos, será printado em outro momento */
+    //                     for(int i=profundidade+1; i!=0; i--){
+    //                         std::cout << "\t";
+    //                         msg += "\t";
+    //                     }
+    //                     std::cout << it << std::endl;
+    //                     msg += it+"\n";
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     else{
+    //         std::cout << (this->src) << std::endl;
+    //         msg += this->src + "\n";
+    //     }
+            
+    //     return msg;
+    // }
 
     void printPai(){
         std::cout << pai;
@@ -92,6 +94,7 @@ std::vector<Node> generateTree(std::string, int);
 Node findInTree(std::vector<Node>, std::string);
 std::vector<Node> seekLevel(std::vector<Node>, int);
 void printTree(std::vector<Node>, int);
+std::string printFilhos(Node, std::vector<Node>, int);
 std::set<std::string> treeToVector(std::vector<Node>);
 
 void makeDump();

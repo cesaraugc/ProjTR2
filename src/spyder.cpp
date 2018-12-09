@@ -197,7 +197,7 @@ vector<Node> generateTree(string baseURL, int levels){
     visited.insert("/");
     Node node_to_search;
     int profundidade_arvore = 0;
-    while(levels>0){
+    while(levels>profundidade_arvore){
         auto arvore2 = arvore;
         for(Node node_to_search:arvore2)
         {   
@@ -241,7 +241,6 @@ vector<Node> generateTree(string baseURL, int levels){
                 /* Se é o último filho do laço */
                 if(cont==((int)node_to_search.filhos.size())){
                     profundidade_arvore = node_to_search.profundidade + 1;
-                    levels--;
                 }
                 
             } 
@@ -254,8 +253,9 @@ vector<Node> generateTree(string baseURL, int levels){
     
     cout << endl;
     
-    /*TODO*/
+    /* TODO */
     printTree(arvore, profundidade_arvore);
+    /* TODO Retirar os "" do constroiReferencia. */
 
     return arvore;
 }
@@ -287,11 +287,8 @@ vector<Node> seekLevel(vector<Node> arvore, int level){
 
 
 /* Print the tree */
-void printTree(vector<Node> arvore, int niveis){
+void printTree(vector<Node> arvore, int profundidade){
     vector<Node> nodes;
-    for(Node i:arvore){
-        i.printed = false;
-    }
     string texto;
     ofstream file;
     file.open("arvore_hipertextual.txt");
@@ -299,13 +296,46 @@ void printTree(vector<Node> arvore, int niveis){
     do{
         nodes = seekLevel(arvore, p);
         for(Node i: nodes){
-            texto = i.printFilhos();
+            texto = printFilhos(i,arvore,profundidade);
             file << texto;
         }
-        niveis--; 
+        profundidade--; 
         p++;
-    }while(niveis>0);
+    }while(profundidade>0);
     file.close();
+}
+
+
+string printFilhos(Node node, vector<Node> arvore, int profundidade){
+    string msg = "";
+    for(int i=node.profundidade; i!=0; i--){
+        cout << "\t";
+        msg += "\t";
+    }
+    if(node.isHTML){
+        if(node.filhos.size() >0){
+            cout << (node.src) << " =>" << endl;
+            msg += node.src + " =>\n";
+            for(string it:node.filhos){
+                Node filho = findInTree(arvore, it);
+                /* se tiver filhos e não for o último nível, será printado em outro momento */
+                if((filho.filhos.size() == 0) || (filho.profundidade==profundidade)){
+                    for(int i=node.profundidade+1; i!=0; i--){
+                        cout << "\t";
+                        msg += "\t";
+                    }
+                    cout << it << endl;
+                    msg += it+"\n";
+                }
+            }
+        }
+    }
+    else{
+        cout << node.src << endl;
+        msg += node.src + "\n";
+    }
+        
+    return msg;
 }
 
 
