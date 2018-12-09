@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
       spyder(baseURL);
       break;  
     case 4:
-      //makeDump();
+      makeDump();
       break;
   }
   return 0;
