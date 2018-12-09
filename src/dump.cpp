@@ -42,7 +42,7 @@ int dump(set<string> requests, string baseURL) {
     }
     response_str = cutHead(response_str);
 
-    if(!isHTML(*itr)) {
+    if(!isHTML(*itr, baseURL)) {
       system(systemCommand.c_str());
       cout << "tryning to write to folder: " << baseURL + "/" + (*itr) << endl;
       file.open(filename, ofstream::binary);
@@ -62,7 +62,7 @@ int dump(set<string> requests, string baseURL) {
         name += ".html";
       }
       name = baseURL + "/" + name;
-      response_str = fixRefs(response_str);
+      response_str = fixRefs(response_str, baseURL);
 
       cout << "tryning to write to file: " << name << endl;
       file.open(name, ofstream::binary);
@@ -92,7 +92,7 @@ string cutHead(string serverRequest) {
   return withouthead;
 }
 
-string fixRefs(string serverResponse) {
+string fixRefs(string serverResponse, string baseURL) {
   string buff;
   size_t init_index, leng;
 
@@ -107,7 +107,7 @@ string fixRefs(string serverResponse) {
         init_index += buff.length() + 1;
         continue;
       }
-      if(isHTML(buff)){
+      if(isHTML(buff, baseURL)){
         if(buff.compare("/") == 0){ //They are equals
            buff = string("index.html");
            serverResponse.replace(init_index + leng, buff.length(), buff);
@@ -131,7 +131,7 @@ string fixRefs(string serverResponse) {
            init_index += buff.length() + 1;
            continue;
        }
-       if(isHTML(buff)){
+       if(isHTML(buff, baseURL)){
          if(buff.compare("/") == 0){ //They are equals
            buff = string("index.html");
            serverResponse.replace(init_index + leng, buff.length(), buff);

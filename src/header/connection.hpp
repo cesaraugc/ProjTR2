@@ -28,7 +28,7 @@ class Node
   
     // Data Members 
     std::string src;
-    Node* pai;
+    std::string pai;
     std::set<std::string> filhos;
     int profundidade;
     bool isHTML;
@@ -47,9 +47,9 @@ class Node
                 std::cout << "\t";
                 msg += "\t";
             }
-            if(pai != NULL){
-                std::cout << (this->pai)->src << " =>" << std::endl;
-                msg += this->pai->src + " =>\n";
+            if(pai != "\0"){
+                std::cout << (this->pai) << " =>" << std::endl;
+                msg += this->pai + " =>\n";
             }
             else{
                 std::cout << "/ => " << std::endl;
@@ -82,7 +82,8 @@ int proxy(int);
 
 std::set<std::string> spyder(std::string);
 void constroiReferencia(std::set<std::string> & ,std::string, std::string);
-bool isHTML(std::string);
+bool isHTML(std::string, std::string);
+bool isRealyHTML(std::string, std::string);
 std::vector<unsigned char> readBinaryFile(std::string);
 std::string readTextFile(std::string);
 bool writeFile(std::string, std::vector<unsigned char>);
@@ -97,4 +98,4 @@ void makeDump();
 int dump(std::set<std::string>, std::string);
 std::string cutHead(std::string);
 
-std::string fixRefs(std::string);
+std::string fixRefs(std::string, std::string);
