@@ -47,7 +47,7 @@ int dump(set<string> requests, string baseURL) {
 
     if(!isRealyHTML(*itr, baseURL)) {
       system(systemCommand.c_str());
-      cout << "tryning to write to folder: " << baseURL + "/" + (*itr) << endl;
+      cout << "tryning to write to folder: " << foldername << endl;
       file.open(filename, ofstream::binary);
       if(file.is_open()){
         file << response_str;
