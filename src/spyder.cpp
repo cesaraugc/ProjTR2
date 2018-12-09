@@ -144,7 +144,7 @@ map<string, bool> mapHTML;
 
 bool isRealyHTML(string url, string baseURL) {
     if(mapHTML.find(url) != mapHTML.end()){
-        cout << "\nALREADY HAVE" << url << endl;
+        cout << "\nALREADY HAVE " << url << endl;
         return mapHTML[url];
     } else {
         mapHTML[url] = isHTML(url, baseURL);

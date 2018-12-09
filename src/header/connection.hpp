@@ -98,4 +98,5 @@ void makeDump();
 int dump(std::set<std::string>, std::string);
 std::string cutHead(std::string);
 
-std::string fixRefs(std::string, std::string);
+void fixRefs(std::string &, std::map<std::string, std::string>&);
+void generateMap(std::map<std::string, std::string>&, std::set<std::string>&, std::string);
