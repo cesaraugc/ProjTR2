@@ -1,103 +1,6 @@
 #include "connection.hpp"
+#include "spyder.hpp"
 using namespace std;
-
-class Tree{
-    public:
-    vector<Node> nodes;
-    int depth;
-    map<int,set<string>> printed_on_level;
-
-    /* Finds a specific node in Tree by it's source and level */
-    Node findInTree(string src, int level){
-        for(vector<Node>::iterator it=(this->nodes).begin(); it!=(this->nodes).end(); ++it){
-            if(((*it).src == src) && ((*it).profundidade==level)){
-                return *it;
-            }
-        }
-        Node j;
-        return j;
-    }
-
-    /* Finds all nodes on that level in Tree */
-    vector<Node> seekLevel(int level){
-        vector<Node> listNodeLevel;
-        for(Node i : (this->nodes) ){
-            if (i.profundidade == level){
-                listNodeLevel.push_back(i);
-            }
-        }
-        return listNodeLevel;
-    }
-
-    /* Converts a vector of Nodes to a vector of strings */
-    set<string> treeToVector(){
-        set<string> srcSet;
-        for(Node i:(this->nodes)){
-            srcSet.emplace(i.src);
-        }
-        return srcSet;
-    }
-
-    string printFilhos(Node node, int profundidade){
-        string msg = "";
-        /* é pulado se já foi printado naquele nível */
-        set<string> printed_l = (this->printed_on_level)[node.profundidade];
-        if(printed_l.find(node.src)!=printed_l.end()){
-            return msg;
-        }
-        for(int i=node.profundidade; i!=0; i--){
-            cout << "\t";
-            msg += "\t";
-        }
-        if(node.isHTML){
-            if(node.filhos.size() >0){
-                cout << (node.src) << " =>" << endl;
-                msg += node.src + " =>\n";
-                for(string it:node.filhos){
-                    Node filho = this->findInTree(it, node.profundidade+1);
-                    /* se tiver filhos e não for o último nível, será printado em outro momento */
-                    if((filho.filhos.size() == 0) || (filho.profundidade==profundidade)){
-                        for(int i=filho.profundidade; i!=0; i--){
-                            cout << "\t";
-                            msg += "\t";
-                        }
-                        cout << filho.src << endl;
-                        msg += filho.src+"\n";
-                        (this->printed_on_level)[filho.profundidade].emplace(filho.src);
-                    }
-                }
-            }
-        }
-        else{
-            cout << node.src << endl;
-            msg += node.src + "\n";
-        }
-            
-        return msg;
-    }
-
-    /* Print the tree */
-    void printTree(){
-        vector<Node> nodes;
-        string texto;
-        ofstream file;
-        file.open("arvore_hipertextual.txt");
-        int p=0;
-        int d=this->depth;
-        do{
-            nodes = this->seekLevel(p);
-            for(Node i: nodes){
-                texto = printFilhos(i, d);
-                file << texto;
-            }
-            d--; 
-            p++;
-        }while(d>0);
-        file.close();
-    }  
-};
-
-Tree generateTree(std::string, int);
 
 set<string> spyder(string baseURL){
     
@@ -213,7 +116,6 @@ void constroiReferencia(set<string> & result, string response, string baseURL) {
 
 /* Verifica se um caminho é HTML para saber se deve ser inspecionado */
 bool isHTML(string value, string baseURL) {
-    // size_t indexSlash = 1;
     vector<unsigned char> headResponse;
     string head;
 
@@ -231,26 +133,9 @@ bool isHTML(string value, string baseURL) {
     } else {
         return false;
     }
-
-    // if(value == "/")
-    //     return true;
-
-    // /* Se encontrar "/" */
-    // indexSlash = value.find_last_of('/');
-    // if( (indexSlash != string::npos) &&  (value.find('.', indexSlash) != string::npos)){
-    //     if(value.find(".html") == string::npos){
-    //         return false;
-    //     }
-    // }
-    // else if (value.find(".html") == string::npos){
-    //     return false;
-    // } 
-    // return true;
 }
 
-map<string, bool> mapHTML;
-
-bool isRealyHTML(string url, string baseURL) {
+bool isReallyHTML(string url, string baseURL) {
     if(mapHTML.find(url) != mapHTML.end()){
         cout << "\nALREADY HAVE " << url << endl;
         return mapHTML[url];
@@ -263,7 +148,7 @@ bool isRealyHTML(string url, string baseURL) {
 /* Return all sources of a sources's sons */
 set<string> buscaFilhos(string url, string baseURL){
     set<string> result;
-    if(isRealyHTML(url, baseURL)) {
+    if(isReallyHTML(url, baseURL)) {
         cout << endl << "Inspecionando " << url << endl;
         string msg = "GET " + (url) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
     
