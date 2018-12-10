@@ -20,7 +20,7 @@ int proxy(int PORTNUM) {
     fml.dest = dest;
     cout << "Aguardando..." << endl;
     int consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
-    int len, i = 10;
+    int len, i = 1000;
 
     while(--i)
     {

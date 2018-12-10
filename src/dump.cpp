@@ -28,12 +28,16 @@ int dump(set<string> requests, string baseURL) {
   for(set<string>::iterator itr = requests.begin(); itr != requests.end(); ++itr){
     if((*itr)[0] != '/'){
       request = "GET /" + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-      foldername = baseURL + "/" + (*itr).substr(0, (*itr).find_last_of('/'));
+      if ((*itr).find_last_of('/') == string::npos){
+        foldername = baseURL + "/";
+      } else {
+        foldername = baseURL + "/" + (*itr).substr(0, (*itr).find_last_of('/'));
+      }
       systemCommand = "mkdir -p " + foldername;
       filename = baseURL + string("/") + (*itr);
     } else {
       request = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-      foldername = baseURL + (*itr).substr(1, (*itr).find_last_of('/'));
+      foldername = baseURL + (*itr).substr(0, (*itr).find_last_of('/'));
       systemCommand = "mkdir -p " + foldername;
       filename = baseURL + (*itr);
     }
@@ -45,7 +49,7 @@ int dump(set<string> requests, string baseURL) {
     }
     response_str = cutHead(response_str);
 
-    if(!isRealyHTML(*itr, baseURL)) {
+    if(!isReallyHTML(*itr, baseURL)) {
       system(systemCommand.c_str());
       cout << "tryning to write to folder: " << foldername << endl;
       file.open(filename, ofstream::binary);
@@ -80,7 +84,7 @@ int dump(set<string> requests, string baseURL) {
 void generateMap(map<string, string> &mapRefs, set<string> &requests, string baseURL) {
 
   for(set<string>::iterator i = requests.begin(); i != requests.end(); ++i){
-    if(!isRealyHTML(*i, baseURL)){//se nao for html mapeie dele para ele mesmo
+    if(!isReallyHTML(*i, baseURL)){//se nao for html mapeie dele para ele mesmo
       if((*i).front() == '/'){
         mapRefs[*i] = (*i).substr(1);
       } else {
@@ -139,6 +143,21 @@ void fixRefs(string &serverResponse, map<string, string> &mapRefs) {
 
   leng = string("src=\"").length();
   while ((init_index = serverResponse.find("src=\"", init_index)) != string::npos) {
+    end_index = serverResponse.find('\"', init_index + leng);
+    buff = serverResponse.substr(init_index + leng, end_index - (init_index + leng));
+    if((leng2 = buff.find('?')) != string::npos){
+      buff = buff.substr(0, leng2);
+    }
+    if(mapRefs.find(buff) != mapRefs.end()){
+      serverResponse.replace(init_index + leng, end_index - (init_index + leng), mapRefs[buff]);
+    }
+    init_index = end_index + 1;
+  }
+
+  init_index = 0;
+
+  leng = string("url(\"").length();
+  while ((init_index = serverResponse.find("url(\"", init_index)) != string::npos) {
     end_index = serverResponse.find('\"', init_index + leng);
     buff = serverResponse.substr(init_index + leng, end_index - (init_index + leng));
     if((leng2 = buff.find('?')) != string::npos){

@@ -1,52 +1,0 @@
-this is the first line
-this is the second line
-
-HTTP/1.1 200 OK
-Date: Sat, 08 Dec 2018 02:49:33 GMT
-Server: Apache/2.4.34 (Amazon) OpenSSL/1.0.2k-fips PHP/5.5.38
-Last-Modified: Wed, 23 Dec 2015 01:17:36 GMT
-ETag: "6bc1-527867cceef82"
-Accept-Ranges: bytes
-Content-Length: 27585
-Keep-Alive: timeout=5, max=100
-Connection: Keep-Alive
-Content-Type: image/jpeg
-
-����@�j`*d�c
-            ��  _�q�(*zz�َ1L@@�Q�(���ʀ%WURxs�_J0��҄������(R����$A��HD�H<���SNzar;���4� d���ڗ�A�Q�"��=)��d������g�֔Z
-�����Pw�(�L�4�
-              u�q�x�"�>��GC�@�q@��h��� ���'��h����sO�Ry����q�-�������b�YR�4S7�M�Pi�{SP'R        e ��T云 ��i��N@�OZ��78�J�Ւ
-                                                                                                                          �X��)M���:�u��@���� �!A
-                                                                                                                                                 GҚ���W4Ƌ����p"1�8��C��Q@�4Ҡ�QxH'VX�W�1���p<S��+��xbGֈ�d�9�R7#��9�2`�0)�py�Rg#i$�ziAۊVHʜq@$)��a�ҙ�B�ޚNzR���?
-Hi���㞕!TO�L`P;
-               �Oj�J\�Sb@NO�eQ}�R%���0�NԪ=��    �9� $g�U�dĕ�N�@T#��S�
-�M��ڔ�q��Jd�n�  权�pS����+���}H�qҕ#�Ƭ���9���Ћ                        Q�@�Y%'R��Tl�o�]x���Vt �(�Y1�x�#;&I��dbyR @ �M#98���LbrG�1�3�H0rA���i��OZ�T�sN?�
-        =y���3�ը��sR�Hlp9���[:sV �'�=^�dSbj9d_(�q<Қ!�IrNO^���8��L
-fy4�����4�4A� ����5�#Ң�g��%�V0�N}�b�Um�����p3E�E�m�&21އL�Fhg���9#�zU{����x=*a.[w�Z��    9�\�ji7!�.y������z�ڹ�:S
-                                                                                                               �d�Z�ba<<�)��c���r��89�
-                                                                                                                                      ʀEK�ٴ3`��ª�JC���r�hP���U�C1$�y�9$c�!�t�߂EI�*7$��,[LJ��c��V!�A�)֠���)C�}Eh��Q�$��Sf,I���{�tP��CpAL�$�Vn��
-z��Im�峀        �D���E[��0I�ҧ�ħr�#����� P=j�V�\�9�*�
-O)�-�c��F�ȕ�`;�0*��eT�R*d3��8�G.�i�� d�|��ʴ�N8�h@��^�ԏX������", ��U�R�_ҧH��O���Uv������Ҍg�V�h8��zґ�s@'4��sAC�8��(��z�~tn��Q���k'
-[���Y�Q��*�*h�I���b�R+
-                      n��*�|(j���T�{S��8�'�
-�ґ��ܜ�x���2��K6r:�$��� j���'�&��'$ѰА�*��
-                                        3
-                                         ���84�<~t�;:hI�s�t�[�aG#Ҹ�yL3) �;9Cۆ�j��D���"UC�����Iʁ��[z�9��9VYK     �+�K��p�T��    9ǵu�ʱ����
-                                                                                                                                        ;���)���d:�S��ң`��M2
-                                                                                                                                                            JP�ަ��ґǽ!ؤ�rx��w���
-܇�G$�-P��vbz���J�f�w\��G+1����ЮH z�rI                                                                                                                                         d�A��~�Ҁg�q8��-�����=���  9�c���5���?�
-                                     3��5��v���:���I�\���g�)���N��!c�CF���B���S1�j&���樕�H94�T�C����Jr�O֠#�G�O$� P#!�H��j)a���(��"�a���G�P*nU� �
-��v�T*I�:T���1n7$�֗���8�Y�/{p1E�b�(,y4�E(y��*���O�M�h�v�
-                                                       :T$�{
-v�����H*:
-pI8<{SKm�8�P�2i�*���)w�'�B��# �Bh��Ԋ{�U�?�T�4��2x�¹e'�N���n qN»,���#&��S��j�@���V�@O�,��c'��#Dʤ��lU��m5�e�▂ԁ#FF'"��G4�a  ��&KP�'�`��Qq�=i���M#��������i�ԟ΁
-                                                                                                             �#T��AZpr*L��Ɔ��<Әq�4�w
-~I^?��@��iH9�j �        ��HCd�J¹��9�&��R$ �+ǿ4� �cN2
-                                                   �S^�癱
-�����AQ������I�p���I���<a�\�                             ���w��* �4�[
-��!Rb`O���̀S�'S�$���t
-��l*�F��fϰ�����ʣ��@XNB��*���U6�R+EB��O��&N���i40����Q�bO>�<
-                                                           �!H��bT
-I���4�+�rT.}�S|���j}��F{Le,q�{
-��c"9�dPI��9���APG҄
-�Q�����&@��R�1���q�SH�h�        `M/@F~�
