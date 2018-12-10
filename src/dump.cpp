@@ -33,7 +33,7 @@ int dump(set<string> requests, string baseURL) {
       filename = baseURL + string("/") + (*itr);
     } else {
       request = "GET " + (*itr) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
-      foldername = baseURL + (*itr).substr(1, (*itr).find_last_of('/'));
+      foldername = baseURL + (*itr).substr(0, (*itr).find_last_of('/'));
       systemCommand = "mkdir -p " + foldername;
       filename = baseURL + (*itr);
     }
@@ -66,8 +66,6 @@ int dump(set<string> requests, string baseURL) {
       if(file.is_open()){
         file << response_str;
         file.close();
-        cout << "Check references before proceed" << endl;
-        getchar();
       } else {
         cout << "Unable to open file. Proceed?" << endl;
         getchar();
@@ -130,6 +128,13 @@ void fixRefs(string &serverResponse, map<string, string> &mapRefs) {
     if((leng2 = buff.find('?')) != string::npos){
       buff = buff.substr(0, leng2);
     }
+    if(buff.length() >= 2){
+      if(buff[0] == '/' && buff[1] == '/') {
+        buff = string("http:") + buff;
+        serverResponse.replace(init_index + leng, end_index - (init_index + leng), buff);
+        continue;
+      }
+    }
     if(mapRefs.find(buff) != mapRefs.end()){
       serverResponse.replace(init_index + leng, end_index - (init_index + leng), mapRefs[buff]);
     }
@@ -143,6 +148,35 @@ void fixRefs(string &serverResponse, map<string, string> &mapRefs) {
     buff = serverResponse.substr(init_index + leng, end_index - (init_index + leng));
     if((leng2 = buff.find('?')) != string::npos){
       buff = buff.substr(0, leng2);
+    }
+    if(buff.length() >= 2){
+      if(buff[0] == '/' && buff[1] == '/') {
+        buff = string("http:") + buff;
+        serverResponse.replace(init_index + leng, end_index - (init_index + leng), buff);
+        continue;
+      }
+    }
+    if(mapRefs.find(buff) != mapRefs.end()){
+      serverResponse.replace(init_index + leng, end_index - (init_index + leng), mapRefs[buff]);
+    }
+    init_index = end_index + 1;
+  }
+
+  init_index = 0;
+
+  leng = string("url(\"").length();
+  while ((init_index = serverResponse.find("url(\"", init_index)) != string::npos) {
+    end_index = serverResponse.find('\"', init_index + leng);
+    buff = serverResponse.substr(init_index + leng, end_index - (init_index + leng));
+    if((leng2 = buff.find('?')) != string::npos){
+      buff = buff.substr(0, leng2);
+    }
+    if(buff.length() >= 2){
+      if(buff[0] == '/' && buff[1] == '/') {
+        buff = string("http:") + buff;
+        serverResponse.replace(init_index + leng, end_index - (init_index + leng), buff);
+        continue;
+      }
     }
     if(mapRefs.find(buff) != mapRefs.end()){
       serverResponse.replace(init_index + leng, end_index - (init_index + leng), mapRefs[buff]);
