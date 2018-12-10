@@ -2,11 +2,7 @@
 using namespace std;
 
 
-void makeDump(){
-  string baseURL;
-
-  cout << "\n\tForneca um dominio valido:\n\n" << endl;
-  cin >> baseURL;
+void makeDump(string baseURL){
   set<string> inspectSet = spyder(baseURL);
   dump(inspectSet, baseURL);
 }

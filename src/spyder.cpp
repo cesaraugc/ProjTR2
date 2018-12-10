@@ -2,7 +2,13 @@
 #include "spyder.hpp"
 using namespace std;
 
+
 set<string> spyder(string baseURL){
+    /**
+    <Função principal do spyder.>
+    @param baseURL: URL base do domínio desejado.
+    @return set<string>: Set com os nomes das referências encontradas. 
+    */
     
     int levels;
     cout << " Quantos níveis deseja buscar? ";
@@ -17,8 +23,14 @@ set<string> spyder(string baseURL){
 }
 
 
-/* Insere em result os arquivos/diretórios encontrados em response */
-void constroiReferencia(set<string> & result, string response, string baseURL) {
+void buildReference(set<string> & result, string response, string baseURL) {
+    /**
+    <Insere em result os arquivos/diretórios encontrados em response>
+    @param result: Endereço do set onde serão inseridas as referências.
+    @param response: resposta obtida do request.
+    @param baseURL: URL base do domínio desejado.
+    */
+
     string buff;
     size_t init_index = 0;
     size_t leng;
@@ -114,12 +126,18 @@ void constroiReferencia(set<string> & result, string response, string baseURL) {
 }
 
 
-/* Verifica se um caminho é HTML para saber se deve ser inspecionado */
-bool isHTML(string value, string baseURL) {
+bool isHTML(string url, string baseURL) {
+    /**
+    <Inspeciona um cabeçalho para saber se um caminho é HTML para saber se deve ser inspecionado.>
+    @param url: Url da referência.
+    @param baseURL: URL base do domínio desejado.
+    @return bool: Indica se é ou não HTML.
+    */
+
     vector<unsigned char> headResponse;
     string head;
 
-    string headMsg = "HEAD " + (value) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
+    string headMsg = "HEAD " + (url) + " HTTP/1.1\r\nHost: " + baseURL + "\r\nConnection: close\r\n\r\n";
     headResponse = makeRequest(headMsg);
 
     string response_str;
@@ -128,14 +146,23 @@ bool isHTML(string value, string baseURL) {
     }
 
     if(response_str.find("text/html") != string::npos && response_str.find("200 OK") != string::npos){
-        cout << "\n\tInside isHTML func " << value << " is html" << endl;
+        cout << "\n\tInside isHTML func " << url << " is html" << endl;
         return true;
     } else {
         return false;
     }
 }
 
+
 bool isReallyHTML(string url, string baseURL) {
+    /**
+    <Verifica se o cabeçalho da url já foi inspecionado para retornar a informação 
+    se a url é ou não um HTML.>
+    @param url: Url da referência.
+    @param baseURL: URL base do domínio desejado.
+    @return bool: Indica se é ou não HTML.
+    */
+
     if(mapHTML.find(url) != mapHTML.end()){
         cout << "\nALREADY HAVE " << url << endl;
         return mapHTML[url];
@@ -145,8 +172,16 @@ bool isReallyHTML(string url, string baseURL) {
     }    
 }
 
+
 /* Return all sources of a sources's sons */
-set<string> buscaFilhos(string url, string baseURL){
+set<string> searchChildren(string url, string baseURL){
+    /**
+    <Busca pelas referências um nível exatamente abaixo da url.>
+    @param url: Url que será buscada.
+    @param baseURL: URL base do domínio desejado.
+    @return set<string>: Conjunto de referências encontradas na url.
+    */
+
     set<string> result;
     if(isReallyHTML(url, baseURL)) {
         cout << endl << "Inspecionando " << url << endl;
@@ -159,15 +194,21 @@ set<string> buscaFilhos(string url, string baseURL){
             response_str += letter;
         }
         result.clear();
-        constroiReferencia(result, response_str, baseURL);
+        buildReference(result, response_str, baseURL);
     }
     return result;
 }
 
 
-
 /* Generates the tree */
 Tree generateTree(string baseURL, int levels){
+    /**
+    <Gera a árvore hipertextual.>
+    @param baseURL: URL base do domínio desejado.
+    @param levels: Número de níveis máximos desejados para a árvore..
+    @return Tree: Árvore gerada.
+    */
+
     set <string> root, visited, visited_tree;
     Tree arvore;
 
@@ -175,7 +216,7 @@ Tree generateTree(string baseURL, int levels){
     cout << msg << "Proceed?" << endl;
     getchar();
 
-    root = buscaFilhos("/", baseURL);
+    root = searchChildren("/", baseURL);
     
     Node node_to_insert;
     node_to_insert.src = "/";
@@ -213,7 +254,7 @@ Tree generateTree(string baseURL, int levels){
                     // insere na lista de visitados se ainda não estiver lá
                     visited.emplace(filho);
 
-                    result = buscaFilhos(filho, baseURL);
+                    result = searchChildren(filho, baseURL);
                     node_to_insert.filhos = result;
                     if(result.empty()){
                         node_to_insert.isHTML = false;
