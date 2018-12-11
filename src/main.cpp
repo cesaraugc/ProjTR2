@@ -2,8 +2,14 @@
 
 using namespace std;
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]){
+  /**
+  Função principal do projeto e que liga todos os módulos 
+  de acordo com a opção escolhida pelo usuário
+  @param argc
+  @param argv
+  @return int
+  */ 
   int value=0;
   string baseURL;
   int portnum;
