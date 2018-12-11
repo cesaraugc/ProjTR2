@@ -32,7 +32,7 @@ int proxy(int PORTNUM) {
         }
         rmsg[len] = '\0';
         if(strstr(rmsg, "POST") != NULL){
-            cout << "I am not accepting POST messages. Plese fuck yourself" << endl;
+            cout << "I am not accepting POST messages. Plese try again" << endl;
             close(consocket);
             consocket = accept(ourSocket, (struct sockaddr *)dest, &socksize);
             continue;
