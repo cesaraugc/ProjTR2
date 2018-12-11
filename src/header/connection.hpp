@@ -35,7 +35,7 @@ std::vector<unsigned char> readBinaryFile(std::string);
 std::string readTextFile(std::string);
 bool writeFile(std::string, std::vector<unsigned char>);
 
-void makeDump();
+void makeDump(std::string);
 int dump(std::set<std::string>, std::string);
 std::string cutHead(std::string);
 

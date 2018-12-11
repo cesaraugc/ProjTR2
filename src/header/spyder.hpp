@@ -120,11 +120,11 @@ class Tree{
 Tree generateTree(std::string, int);
 std::map<std::string, bool> mapHTML;
 
-std::set<std::string> buscaFilhos(std::string, std::string);
+std::set<std::string> searchChildren(std::string, std::string);
 Node findInTree(std::vector<Node>, std::string, int);
 std::vector<Node> seekLevel(std::vector<Node>, int);
 void printTree(std::vector<Node>, int);
 std::set<std::string> treeToVector(std::vector<Node>);
 
-void constroiReferencia(std::set<std::string> & ,std::string, std::string);
+void buildReference(std::set<std::string> & ,std::string, std::string);
 bool isHTML(std::string, std::string);
