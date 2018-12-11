@@ -1,0 +1,43 @@
+\hypertarget{receive_8cpp}{}\section{receive.\+cpp File Reference}
+\label{receive_8cpp}\index{receive.\+cpp@{receive.\+cpp}}
+{\ttfamily \#include \char`\"{}connection.\+hpp\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{receive_8cpp_ac16d1ad078730179d28f1b62c28b30c5}{create\+New\+Socket} (uint16\+\_\+t port\+Num, uint16\+\_\+t parallel\+Connections)
+\item 
+void \hyperlink{receive_8cpp_a6fb3812c2de66e8962b6dee5144ffb03}{free\+Memory} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{receive_8cpp_ac16d1ad078730179d28f1b62c28b30c5}\label{receive_8cpp_ac16d1ad078730179d28f1b62c28b30c5}} 
+\index{receive.\+cpp@{receive.\+cpp}!create\+New\+Socket@{create\+New\+Socket}}
+\index{create\+New\+Socket@{create\+New\+Socket}!receive.\+cpp@{receive.\+cpp}}
+\subsubsection{\texorpdfstring{create\+New\+Socket()}{createNewSocket()}}
+{\footnotesize\ttfamily int create\+New\+Socket (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{port\+Num,  }\item[{uint16\+\_\+t}]{parallel\+Connections }\end{DoxyParamCaption})}
+
+Função que cria um socket para escutar as requisições vindas do browser. 
+\begin{DoxyParams}{Parameters}
+{\em port\+Num} & Porta que será aberta para receber requisições. \\
+\hline
+{\em parallel\+Connections} & Número de conexões em paralelo que podem ser recebidas do browser \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\+: Um inteiro com o descriptor do socket.
+\end{DoxyReturn}
+
+
+Definition at line 3 of file receive.\+cpp.
+
+\mbox{\Hypertarget{receive_8cpp_a6fb3812c2de66e8962b6dee5144ffb03}\label{receive_8cpp_a6fb3812c2de66e8962b6dee5144ffb03}} 
+\index{receive.\+cpp@{receive.\+cpp}!free\+Memory@{free\+Memory}}
+\index{free\+Memory@{free\+Memory}!receive.\+cpp@{receive.\+cpp}}
+\subsubsection{\texorpdfstring{free\+Memory()}{freeMemory()}}
+{\footnotesize\ttfamily void free\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que libera a memória após a execução do programa evitando memory leak.
+
+Definition at line 41 of file receive.\+cpp.
+

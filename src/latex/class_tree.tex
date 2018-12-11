@@ -1,0 +1,126 @@
+\hypertarget{class_tree}{}\section{Tree Class Reference}
+\label{class_tree}\index{Tree@{Tree}}
+
+
+{\ttfamily \#include $<$spyder.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_node}{Node} \hyperlink{class_tree_ad882c6f8facefed5874a603852cd3241}{find\+In\+Tree} (std\+::string src, int level)
+\item 
+std\+::vector$<$ \hyperlink{class_node}{Node} $>$ \hyperlink{class_tree_a5f27896a82db339aa51367b16e943075}{seek\+Level} (int level)
+\item 
+std\+::set$<$ std\+::string $>$ \hyperlink{class_tree_a1431f9f1aa001db35efbf359529865ee}{tree\+To\+Vector} ()
+\item 
+std\+::string \hyperlink{class_tree_a8345fdedbeae0557714f1f018f7d6001}{print\+Filhos} (\hyperlink{class_node}{Node} node)
+\item 
+void \hyperlink{class_tree_adf924fbe92e157bf8fcbc4ac6ea68aac}{print\+Tree} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \hyperlink{class_node}{Node} $>$ \hyperlink{class_tree_aa48810b7e06dd70e4ed128ca4a42325f}{nodes}
+\item 
+int \hyperlink{class_tree_aee829f12b9755333a0196190fbe07f1b}{depth}
+\item 
+std\+::map$<$ int, std\+::set$<$ std\+::string $>$ $>$ \hyperlink{class_tree_a31853ff24c8b15101fd1313582aacb9d}{printed\+\_\+on\+\_\+level}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+
+
+Definition at line 26 of file spyder.\+hpp.
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_tree_ad882c6f8facefed5874a603852cd3241}\label{class_tree_ad882c6f8facefed5874a603852cd3241}} 
+\index{Tree@{Tree}!find\+In\+Tree@{find\+In\+Tree}}
+\index{find\+In\+Tree@{find\+In\+Tree}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{find\+In\+Tree()}{findInTree()}}
+{\footnotesize\ttfamily \hyperlink{class_node}{Node} Tree\+::find\+In\+Tree (\begin{DoxyParamCaption}\item[{std\+::string}]{src,  }\item[{int}]{level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 33 of file spyder.\+hpp.
+
+\mbox{\Hypertarget{class_tree_a8345fdedbeae0557714f1f018f7d6001}\label{class_tree_a8345fdedbeae0557714f1f018f7d6001}} 
+\index{Tree@{Tree}!print\+Filhos@{print\+Filhos}}
+\index{print\+Filhos@{print\+Filhos}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{print\+Filhos()}{printFilhos()}}
+{\footnotesize\ttfamily std\+::string Tree\+::print\+Filhos (\begin{DoxyParamCaption}\item[{\hyperlink{class_node}{Node}}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 63 of file spyder.\+hpp.
+
+\mbox{\Hypertarget{class_tree_adf924fbe92e157bf8fcbc4ac6ea68aac}\label{class_tree_adf924fbe92e157bf8fcbc4ac6ea68aac}} 
+\index{Tree@{Tree}!print\+Tree@{print\+Tree}}
+\index{print\+Tree@{print\+Tree}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{print\+Tree()}{printTree()}}
+{\footnotesize\ttfamily void Tree\+::print\+Tree (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 102 of file spyder.\+hpp.
+
+\mbox{\Hypertarget{class_tree_a5f27896a82db339aa51367b16e943075}\label{class_tree_a5f27896a82db339aa51367b16e943075}} 
+\index{Tree@{Tree}!seek\+Level@{seek\+Level}}
+\index{seek\+Level@{seek\+Level}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{seek\+Level()}{seekLevel()}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{class_node}{Node}$>$ Tree\+::seek\+Level (\begin{DoxyParamCaption}\item[{int}]{level }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 44 of file spyder.\+hpp.
+
+\mbox{\Hypertarget{class_tree_a1431f9f1aa001db35efbf359529865ee}\label{class_tree_a1431f9f1aa001db35efbf359529865ee}} 
+\index{Tree@{Tree}!tree\+To\+Vector@{tree\+To\+Vector}}
+\index{tree\+To\+Vector@{tree\+To\+Vector}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{tree\+To\+Vector()}{treeToVector()}}
+{\footnotesize\ttfamily std\+::set$<$std\+::string$>$ Tree\+::tree\+To\+Vector (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 55 of file spyder.\+hpp.
+
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{class_tree_aee829f12b9755333a0196190fbe07f1b}\label{class_tree_aee829f12b9755333a0196190fbe07f1b}} 
+\index{Tree@{Tree}!depth@{depth}}
+\index{depth@{depth}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{depth}{depth}}
+{\footnotesize\ttfamily int Tree\+::depth}
+
+
+
+Definition at line 29 of file spyder.\+hpp.
+
+\mbox{\Hypertarget{class_tree_aa48810b7e06dd70e4ed128ca4a42325f}\label{class_tree_aa48810b7e06dd70e4ed128ca4a42325f}} 
+\index{Tree@{Tree}!nodes@{nodes}}
+\index{nodes@{nodes}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{nodes}{nodes}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{class_node}{Node}$>$ Tree\+::nodes}
+
+
+
+Definition at line 28 of file spyder.\+hpp.
+
+\mbox{\Hypertarget{class_tree_a31853ff24c8b15101fd1313582aacb9d}\label{class_tree_a31853ff24c8b15101fd1313582aacb9d}} 
+\index{Tree@{Tree}!printed\+\_\+on\+\_\+level@{printed\+\_\+on\+\_\+level}}
+\index{printed\+\_\+on\+\_\+level@{printed\+\_\+on\+\_\+level}!Tree@{Tree}}
+\subsubsection{\texorpdfstring{printed\+\_\+on\+\_\+level}{printed\_on\_level}}
+{\footnotesize\ttfamily std\+::map$<$int,std\+::set$<$std\+::string$>$ $>$ Tree\+::printed\+\_\+on\+\_\+level}
+
+
+
+Definition at line 30 of file spyder.\+hpp.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+header/\hyperlink{spyder_8hpp}{spyder.\+hpp}\end{DoxyCompactItemize}

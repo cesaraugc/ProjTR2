@@ -5,7 +5,7 @@ using namespace std;
 
 set<string> spyder(string baseURL){
     /**
-    <Função principal do spyder.>
+    Função principal do spyder.
     @param baseURL: URL base do domínio desejado.
     @return set<string>: Set com os nomes das referências encontradas. 
     */
@@ -128,7 +128,7 @@ void buildReference(set<string> & result, string response, string baseURL) {
 
 bool isHTML(string url, string baseURL) {
     /**
-    <Inspeciona um cabeçalho para saber se um caminho é HTML para saber se deve ser inspecionado.>
+    Inspeciona um cabeçalho para saber se um caminho é HTML para saber se deve ser inspecionado.
     @param url: Url da referência.
     @param baseURL: URL base do domínio desejado.
     @return bool: Indica se é ou não HTML.
@@ -203,7 +203,7 @@ set<string> searchChildren(string url, string baseURL){
 /* Generates the tree */
 Tree generateTree(string baseURL, int levels){
     /**
-    <Gera a árvore hipertextual.>
+    Gera a árvore hipertextual.
     @param baseURL: URL base do domínio desejado.
     @param levels: Número de níveis máximos desejados para a árvore..
     @return Tree: Árvore gerada.

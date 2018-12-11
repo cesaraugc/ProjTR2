@@ -1,0 +1,108 @@
+\hypertarget{spyder_8hpp}{}\section{header/spyder.hpp File Reference}
+\label{spyder_8hpp}\index{header/spyder.\+hpp@{header/spyder.\+hpp}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$streambuf$>$}\newline
+{\ttfamily \#include $<$experimental/filesystem$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_node}{Node}
+\item 
+class \hyperlink{class_tree}{Tree}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_tree}{Tree} \hyperlink{spyder_8hpp_aae1cc4bea4dc8f3fffedaad03ceba36a}{generate\+Tree} (std\+::string, int)
+\item 
+std\+::set$<$ std\+::string $>$ \hyperlink{spyder_8hpp_a8affd2961cd8beac8de30cceccd673c8}{search\+Children} (std\+::string, std\+::string)
+\item 
+\hyperlink{class_node}{Node} \hyperlink{spyder_8hpp_a45820c47f7301a2669f23266bd9a5eca}{find\+In\+Tree} (std\+::vector$<$ \hyperlink{class_node}{Node} $>$, std\+::string, int)
+\item 
+std\+::vector$<$ \hyperlink{class_node}{Node} $>$ \hyperlink{spyder_8hpp_a369b3e81d3eb8b084d0dbeba6fcdfc2a}{seek\+Level} (std\+::vector$<$ \hyperlink{class_node}{Node} $>$, int)
+\item 
+void \hyperlink{spyder_8hpp_a044e2332d9ac2245c2664dfe414f4fcd}{print\+Tree} (std\+::vector$<$ \hyperlink{class_node}{Node} $>$, int)
+\item 
+std\+::set$<$ std\+::string $>$ \hyperlink{spyder_8hpp_a95e103710a2d1e7c71371961a9d38846}{tree\+To\+Vector} (std\+::vector$<$ \hyperlink{class_node}{Node} $>$)
+\item 
+void \hyperlink{spyder_8hpp_a7a1a75b3e8089d8bd2f553680ed87f2a}{build\+Reference} (std\+::set$<$ std\+::string $>$ \&, std\+::string, std\+::string)
+\item 
+bool \hyperlink{spyder_8hpp_a89c094d43b6db113db15a3bedca9a4d3}{is\+H\+T\+ML} (std\+::string, std\+::string)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+std\+::map$<$ std\+::string, bool $>$ \hyperlink{spyder_8hpp_a2113312b39a54564a68acab67048b67f}{map\+H\+T\+ML}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{spyder_8hpp_a7a1a75b3e8089d8bd2f553680ed87f2a}\label{spyder_8hpp_a7a1a75b3e8089d8bd2f553680ed87f2a}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!build\+Reference@{build\+Reference}}
+\index{build\+Reference@{build\+Reference}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{build\+Reference()}{buildReference()}}
+{\footnotesize\ttfamily void build\+Reference (\begin{DoxyParamCaption}\item[{std\+::set$<$ std\+::string $>$ \&}]{,  }\item[{std\+::string}]{,  }\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_a45820c47f7301a2669f23266bd9a5eca}\label{spyder_8hpp_a45820c47f7301a2669f23266bd9a5eca}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!find\+In\+Tree@{find\+In\+Tree}}
+\index{find\+In\+Tree@{find\+In\+Tree}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{find\+In\+Tree()}{findInTree()}}
+{\footnotesize\ttfamily \hyperlink{class_node}{Node} find\+In\+Tree (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{class_node}{Node} $>$}]{,  }\item[{std\+::string}]{,  }\item[{int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_aae1cc4bea4dc8f3fffedaad03ceba36a}\label{spyder_8hpp_aae1cc4bea4dc8f3fffedaad03ceba36a}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!generate\+Tree@{generate\+Tree}}
+\index{generate\+Tree@{generate\+Tree}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{generate\+Tree()}{generateTree()}}
+{\footnotesize\ttfamily \hyperlink{class_tree}{Tree} generate\+Tree (\begin{DoxyParamCaption}\item[{std\+::string}]{,  }\item[{int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_a89c094d43b6db113db15a3bedca9a4d3}\label{spyder_8hpp_a89c094d43b6db113db15a3bedca9a4d3}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!is\+H\+T\+ML@{is\+H\+T\+ML}}
+\index{is\+H\+T\+ML@{is\+H\+T\+ML}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{is\+H\+T\+M\+L()}{isHTML()}}
+{\footnotesize\ttfamily bool is\+H\+T\+ML (\begin{DoxyParamCaption}\item[{std\+::string}]{,  }\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_a044e2332d9ac2245c2664dfe414f4fcd}\label{spyder_8hpp_a044e2332d9ac2245c2664dfe414f4fcd}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!print\+Tree@{print\+Tree}}
+\index{print\+Tree@{print\+Tree}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{print\+Tree()}{printTree()}}
+{\footnotesize\ttfamily void print\+Tree (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{class_node}{Node} $>$}]{,  }\item[{int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_a8affd2961cd8beac8de30cceccd673c8}\label{spyder_8hpp_a8affd2961cd8beac8de30cceccd673c8}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!search\+Children@{search\+Children}}
+\index{search\+Children@{search\+Children}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{search\+Children()}{searchChildren()}}
+{\footnotesize\ttfamily std\+::set$<$std\+::string$>$ search\+Children (\begin{DoxyParamCaption}\item[{std\+::string}]{,  }\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_a369b3e81d3eb8b084d0dbeba6fcdfc2a}\label{spyder_8hpp_a369b3e81d3eb8b084d0dbeba6fcdfc2a}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!seek\+Level@{seek\+Level}}
+\index{seek\+Level@{seek\+Level}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{seek\+Level()}{seekLevel()}}
+{\footnotesize\ttfamily std\+::vector$<$\hyperlink{class_node}{Node}$>$ seek\+Level (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{class_node}{Node} $>$}]{,  }\item[{int}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{spyder_8hpp_a95e103710a2d1e7c71371961a9d38846}\label{spyder_8hpp_a95e103710a2d1e7c71371961a9d38846}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!tree\+To\+Vector@{tree\+To\+Vector}}
+\index{tree\+To\+Vector@{tree\+To\+Vector}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{tree\+To\+Vector()}{treeToVector()}}
+{\footnotesize\ttfamily std\+::set$<$std\+::string$>$ tree\+To\+Vector (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \hyperlink{class_node}{Node} $>$}]{ }\end{DoxyParamCaption})}
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{spyder_8hpp_a2113312b39a54564a68acab67048b67f}\label{spyder_8hpp_a2113312b39a54564a68acab67048b67f}} 
+\index{spyder.\+hpp@{spyder.\+hpp}!map\+H\+T\+ML@{map\+H\+T\+ML}}
+\index{map\+H\+T\+ML@{map\+H\+T\+ML}!spyder.\+hpp@{spyder.\+hpp}}
+\subsubsection{\texorpdfstring{map\+H\+T\+ML}{mapHTML}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, bool$>$ map\+H\+T\+ML}
+
+
+
+Definition at line 121 of file spyder.\+hpp.
+

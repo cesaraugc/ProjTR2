@@ -10,8 +10,11 @@
 #include <experimental/filesystem>
 #include <map>
 
-class Node
-{ 
+class Node{
+    /**
+    Classe que representa unicamente cada referência encontrada.
+    */
+
     // Access specifier 
     public: 
   
@@ -24,6 +27,9 @@ class Node
 };
 
 class Tree{
+    /**
+    Classe que agrupa todas as referências encontradas. 
+    */
     public:
     std::vector<Node> nodes;
     int depth;
@@ -31,6 +37,12 @@ class Tree{
 
     /* Finds a specific node in Tree by it's source and level */
     Node findInTree(std::string src, int level){
+        /**
+        Encontra um nó específico na árvore através de sua URL e seu nível na árvore. 
+        @param src: URL do nó.
+        @param level: nível do nó na árvore.
+        @return Node: nó encontrado.
+        */
         for(std::vector<Node>::iterator it=(this->nodes).begin(); it!=(this->nodes).end(); ++it){
             if(((*it).src == src) && ((*it).profundidade==level)){
                 return *it;
@@ -42,6 +54,11 @@ class Tree{
 
     /* Finds all nodes on that level in Tree */
     std::vector<Node> seekLevel(int level){
+        /**
+        Encontra todos os nós no nível especificado. 
+        @param int level: nível que se deseja buscar.
+        @return vector<Node>: vetor de nós naquele nível. 
+        */ 
         std::vector<Node> listNodeLevel;
         for(Node i : (this->nodes) ){
             if (i.profundidade == level){
@@ -53,6 +70,11 @@ class Tree{
 
     /* Converts a vector of Nodes to a vector of strings */
     std::set<std::string> treeToVector(){
+        /**
+        Converte todos os nós da árvore em um set de URLs únicas de uma dimensão
+        para uso no Dump.
+        @return: set<string>: Set de nós únicos. 
+        */
         std::set<std::string> srcSet;
         for(Node i:(this->nodes)){
             srcSet.emplace(i.src);
@@ -61,6 +83,13 @@ class Tree{
     }
 
     std::string printFilhos(Node node){
+        /**
+        Printa um nó específico todos os filhos daquele nó 
+        com a tabulação correta de acordo com o nível.
+        @param Node node: nó que se deseja printar.
+        @return string: mensagem printada.
+        */
+
         std::string msg = "";
         /* é pulado se já foi printado naquele nível */
         std::set<std::string> printed_l = (this->printed_on_level)[node.profundidade];
@@ -100,6 +129,10 @@ class Tree{
 
     /* Print the tree */
     void printTree(){
+        /**
+        Printa toda a árvore com a tabulação correta. 
+        */
+       
         std::vector<Node> nodes;
         std::string texto;
         std::ofstream file;

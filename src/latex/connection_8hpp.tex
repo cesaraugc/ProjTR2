@@ -1,0 +1,224 @@
+\hypertarget{connection_8hpp}{}\section{header/connection.hpp File Reference}
+\label{connection_8hpp}\index{header/connection.\+hpp@{header/connection.\+hpp}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$netinet/in.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$netdb.\+h$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$iterator$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$streambuf$>$}\newline
+{\ttfamily \#include $<$experimental/filesystem$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfree_memory_list}{free\+Memory\+List}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{connection_8hpp_a98472580d663012945abe1176342b5ec}{create\+New\+Socket} (uint16\+\_\+t, uint16\+\_\+t)
+\item 
+void \hyperlink{connection_8hpp_a6fb3812c2de66e8962b6dee5144ffb03}{free\+Memory} ()
+\item 
+std\+::vector$<$ unsigned char $>$ \hyperlink{connection_8hpp_aa66d8089d8d45675cb3036913a90fe09}{make\+Request} (std\+::string)
+\item 
+std\+::string \hyperlink{connection_8hpp_aa22a906589f4bf6529b9380bc1fe8548}{get\+Host\+Value} (std\+::string)
+\item 
+int \hyperlink{connection_8hpp_a9bebc20b7366b87293b25458f157476c}{inspector} (int)
+\item 
+int \hyperlink{connection_8hpp_ade24a1d0b5b8bdb2672abf1ba4f8a77e}{proxy} (int)
+\item 
+std\+::set$<$ std\+::string $>$ \hyperlink{connection_8hpp_aa8dc7d5ba2e4951d46788210962fcb6e}{spyder} (std\+::string)
+\item 
+bool \hyperlink{connection_8hpp_acfd7373b59295dbe9f15fea1210d947d}{is\+Really\+H\+T\+ML} (std\+::string, std\+::string)
+\item 
+std\+::vector$<$ unsigned char $>$ \hyperlink{connection_8hpp_af77157403d4f5fed4ec45730bb1a39b1}{read\+Binary\+File} (std\+::string)
+\item 
+std\+::string \hyperlink{connection_8hpp_ab63b6e9c45155687f61171fca656a1b2}{read\+Text\+File} (std\+::string)
+\item 
+bool \hyperlink{connection_8hpp_a30fc7b0cf1beb243a1308a2d6421d67b}{write\+File} (std\+::string, std\+::vector$<$ unsigned char $>$)
+\item 
+void \hyperlink{connection_8hpp_ae3bbfa5b715c378f0bfe011c86ccedb6}{make\+Dump} (std\+::string)
+\item 
+int \hyperlink{connection_8hpp_a68e1c5e316754adb8c1809fc3acd3e36}{dump} (std\+::set$<$ std\+::string $>$, std\+::string)
+\item 
+std\+::string \hyperlink{connection_8hpp_a886c67b0d2eb931a441042e93f2965ff}{cut\+Head} (std\+::string)
+\item 
+void \hyperlink{connection_8hpp_a68f0a1a4b681742af592d28314950f50}{fix\+Refs} (std\+::string \&, std\+::map$<$ std\+::string, std\+::string $>$ \&)
+\item 
+void \hyperlink{connection_8hpp_a8f50b2b707ebb9d937c757d6cefd5d7c}{generate\+Map} (std\+::map$<$ std\+::string, std\+::string $>$ \&, std\+::set$<$ std\+::string $>$ \&, std\+::string)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{connection_8hpp_a98472580d663012945abe1176342b5ec}\label{connection_8hpp_a98472580d663012945abe1176342b5ec}} 
+\index{connection.\+hpp@{connection.\+hpp}!create\+New\+Socket@{create\+New\+Socket}}
+\index{create\+New\+Socket@{create\+New\+Socket}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{create\+New\+Socket()}{createNewSocket()}}
+{\footnotesize\ttfamily int create\+New\+Socket (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{,  }\item[{uint16\+\_\+t}]{ }\end{DoxyParamCaption})}
+
+Função que cria um socket para escutar as requisições vindas do browser. 
+\begin{DoxyParams}{Parameters}
+{\em port\+Num} & Porta que será aberta para receber requisições. \\
+\hline
+{\em parallel\+Connections} & Número de conexões em paralelo que podem ser recebidas do browser \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\+: Um inteiro com o descriptor do socket.
+\end{DoxyReturn}
+
+
+Definition at line 3 of file receive.\+cpp.
+
+\mbox{\Hypertarget{connection_8hpp_a886c67b0d2eb931a441042e93f2965ff}\label{connection_8hpp_a886c67b0d2eb931a441042e93f2965ff}} 
+\index{connection.\+hpp@{connection.\+hpp}!cut\+Head@{cut\+Head}}
+\index{cut\+Head@{cut\+Head}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{cut\+Head()}{cutHead()}}
+{\footnotesize\ttfamily std\+::string cut\+Head (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_a68e1c5e316754adb8c1809fc3acd3e36}\label{connection_8hpp_a68e1c5e316754adb8c1809fc3acd3e36}} 
+\index{connection.\+hpp@{connection.\+hpp}!dump@{dump}}
+\index{dump@{dump}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily int dump (\begin{DoxyParamCaption}\item[{std\+::set$<$ std\+::string $>$}]{,  }\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_a68f0a1a4b681742af592d28314950f50}\label{connection_8hpp_a68f0a1a4b681742af592d28314950f50}} 
+\index{connection.\+hpp@{connection.\+hpp}!fix\+Refs@{fix\+Refs}}
+\index{fix\+Refs@{fix\+Refs}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{fix\+Refs()}{fixRefs()}}
+{\footnotesize\ttfamily void fix\+Refs (\begin{DoxyParamCaption}\item[{std\+::string \&}]{,  }\item[{std\+::map$<$ std\+::string, std\+::string $>$ \&}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_a6fb3812c2de66e8962b6dee5144ffb03}\label{connection_8hpp_a6fb3812c2de66e8962b6dee5144ffb03}} 
+\index{connection.\+hpp@{connection.\+hpp}!free\+Memory@{free\+Memory}}
+\index{free\+Memory@{free\+Memory}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{free\+Memory()}{freeMemory()}}
+{\footnotesize\ttfamily void free\+Memory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Função que libera a memória após a execução do programa evitando memory leak.
+
+Definition at line 41 of file receive.\+cpp.
+
+\mbox{\Hypertarget{connection_8hpp_a8f50b2b707ebb9d937c757d6cefd5d7c}\label{connection_8hpp_a8f50b2b707ebb9d937c757d6cefd5d7c}} 
+\index{connection.\+hpp@{connection.\+hpp}!generate\+Map@{generate\+Map}}
+\index{generate\+Map@{generate\+Map}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{generate\+Map()}{generateMap()}}
+{\footnotesize\ttfamily void generate\+Map (\begin{DoxyParamCaption}\item[{std\+::map$<$ std\+::string, std\+::string $>$ \&}]{,  }\item[{std\+::set$<$ std\+::string $>$ \&}]{,  }\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_aa22a906589f4bf6529b9380bc1fe8548}\label{connection_8hpp_aa22a906589f4bf6529b9380bc1fe8548}} 
+\index{connection.\+hpp@{connection.\+hpp}!get\+Host\+Value@{get\+Host\+Value}}
+\index{get\+Host\+Value@{get\+Host\+Value}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{get\+Host\+Value()}{getHostValue()}}
+{\footnotesize\ttfamily std\+::string get\+Host\+Value (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+Função que resgata o valor do campo Host para fazer um query D\+NS em busca do IP de origem. O campo Host precisa ser passado na requisição H\+T\+TP. 
+\begin{DoxyParams}{Parameters}
+{\em msg\+\_\+string} & Uma string que será inpecionada para extrair o valor de Host. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\+::string\+: Uma string que contém o valor do campo.
+\end{DoxyReturn}
+
+
+Definition at line 51 of file request.\+cpp.
+
+\mbox{\Hypertarget{connection_8hpp_a9bebc20b7366b87293b25458f157476c}\label{connection_8hpp_a9bebc20b7366b87293b25458f157476c}} 
+\index{connection.\+hpp@{connection.\+hpp}!inspector@{inspector}}
+\index{inspector@{inspector}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{inspector()}{inspector()}}
+{\footnotesize\ttfamily int inspector (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})}
+
+Função que raliza inspeção da requisição vinda do browser e da resposta do servidor 
+\begin{DoxyParams}{Parameters}
+{\em P\+O\+R\+T\+N\+UM} & Número da porta que será aberta para receber requisições vindas do browser. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\+: Um inteiro indicando sucesso das requisições feitas. Ele pode ser ignorado.
+\end{DoxyReturn}
+
+
+Definition at line 8 of file inspector.\+cpp.
+
+\mbox{\Hypertarget{connection_8hpp_acfd7373b59295dbe9f15fea1210d947d}\label{connection_8hpp_acfd7373b59295dbe9f15fea1210d947d}} 
+\index{connection.\+hpp@{connection.\+hpp}!is\+Really\+H\+T\+ML@{is\+Really\+H\+T\+ML}}
+\index{is\+Really\+H\+T\+ML@{is\+Really\+H\+T\+ML}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{is\+Really\+H\+T\+M\+L()}{isReallyHTML()}}
+{\footnotesize\ttfamily bool is\+Really\+H\+T\+ML (\begin{DoxyParamCaption}\item[{std\+::string}]{,  }\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_ae3bbfa5b715c378f0bfe011c86ccedb6}\label{connection_8hpp_ae3bbfa5b715c378f0bfe011c86ccedb6}} 
+\index{connection.\+hpp@{connection.\+hpp}!make\+Dump@{make\+Dump}}
+\index{make\+Dump@{make\+Dump}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{make\+Dump()}{makeDump()}}
+{\footnotesize\ttfamily void make\+Dump (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_aa66d8089d8d45675cb3036913a90fe09}\label{connection_8hpp_aa66d8089d8d45675cb3036913a90fe09}} 
+\index{connection.\+hpp@{connection.\+hpp}!make\+Request@{make\+Request}}
+\index{make\+Request@{make\+Request}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{make\+Request()}{makeRequest()}}
+{\footnotesize\ttfamily std\+::vector$<$unsigned char$>$ make\+Request (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+Função que realiza a requisição no servidor de origem. 
+\begin{DoxyParams}{Parameters}
+{\em msg\+\_\+string} & Uma string que será passada ao socket para enviar ao servidor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector $<$unsigned char$>$=\char`\"{}\char`\"{}$>$\+: Um vector de unsigned char com a resposta recebida.
+\end{DoxyReturn}
+
+
+Definition at line 5 of file request.\+cpp.
+
+\mbox{\Hypertarget{connection_8hpp_ade24a1d0b5b8bdb2672abf1ba4f8a77e}\label{connection_8hpp_ade24a1d0b5b8bdb2672abf1ba4f8a77e}} 
+\index{connection.\+hpp@{connection.\+hpp}!proxy@{proxy}}
+\index{proxy@{proxy}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{proxy()}{proxy()}}
+{\footnotesize\ttfamily int proxy (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})}
+
+Função do proxy que recebe as requisições vindas do browser e passa imediatamente para o socket ligado ao servidor sem a possibilidade de editar, assim como sua resposta. 
+\begin{DoxyParams}{Parameters}
+{\em P\+O\+R\+T\+N\+UM} & Um inteiro dizendo qual porta será aberta para receber requisições do browser. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int\+: Um inteiro indicando sucesso na execução do proxy.
+\end{DoxyReturn}
+
+
+Definition at line 7 of file proxy.\+cpp.
+
+\mbox{\Hypertarget{connection_8hpp_af77157403d4f5fed4ec45730bb1a39b1}\label{connection_8hpp_af77157403d4f5fed4ec45730bb1a39b1}} 
+\index{connection.\+hpp@{connection.\+hpp}!read\+Binary\+File@{read\+Binary\+File}}
+\index{read\+Binary\+File@{read\+Binary\+File}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{read\+Binary\+File()}{readBinaryFile()}}
+{\footnotesize\ttfamily std\+::vector$<$unsigned char$>$ read\+Binary\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_ab63b6e9c45155687f61171fca656a1b2}\label{connection_8hpp_ab63b6e9c45155687f61171fca656a1b2}} 
+\index{connection.\+hpp@{connection.\+hpp}!read\+Text\+File@{read\+Text\+File}}
+\index{read\+Text\+File@{read\+Text\+File}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{read\+Text\+File()}{readTextFile()}}
+{\footnotesize\ttfamily std\+::string read\+Text\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_aa8dc7d5ba2e4951d46788210962fcb6e}\label{connection_8hpp_aa8dc7d5ba2e4951d46788210962fcb6e}} 
+\index{connection.\+hpp@{connection.\+hpp}!spyder@{spyder}}
+\index{spyder@{spyder}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{spyder()}{spyder()}}
+{\footnotesize\ttfamily std\+::set$<$std\+::string$>$ spyder (\begin{DoxyParamCaption}\item[{std\+::string}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{connection_8hpp_a30fc7b0cf1beb243a1308a2d6421d67b}\label{connection_8hpp_a30fc7b0cf1beb243a1308a2d6421d67b}} 
+\index{connection.\+hpp@{connection.\+hpp}!write\+File@{write\+File}}
+\index{write\+File@{write\+File}!connection.\+hpp@{connection.\+hpp}}
+\subsubsection{\texorpdfstring{write\+File()}{writeFile()}}
+{\footnotesize\ttfamily bool write\+File (\begin{DoxyParamCaption}\item[{std\+::string}]{,  }\item[{std\+::vector$<$ unsigned char $>$}]{ }\end{DoxyParamCaption})}
+
