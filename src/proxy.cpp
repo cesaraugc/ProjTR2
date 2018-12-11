@@ -5,6 +5,12 @@
 using namespace std;
 
 int proxy(int PORTNUM) {
+    /**
+    Função do proxy que recebe as requisições vindas do browser e passa imediatamente para o socket ligado ao servidor sem 
+    a possibilidade de editar, assim como sua resposta.
+    @param PORTNUM: Um inteiro dizendo qual porta será aberta para receber requisições do browser.
+    @return int: Um inteiro indicando sucesso na execução do proxy.
+    */
     extern struct freeMemoryList fml;
     struct sockaddr_in *dest; /* socket info about the machine connecting to us */
     char rmsg[MAXRCVLEN];

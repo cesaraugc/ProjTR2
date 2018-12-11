@@ -6,6 +6,13 @@ struct freeMemoryList fml;
 using namespace std;
 
 int inspector(int PORTNUM) {
+
+  /**
+    Função que raliza inspeção da requisição vinda do browser e da resposta do servidor
+    @param PORTNUM: Número da porta que será aberta para receber requisições vindas do browser.
+    @return int: Um inteiro indicando sucesso das requisições feitas. Ele pode ser ignorado.
+    */
+
   struct sockaddr_in *dest; /* socket info about the machine connecting to us */
   char rmsg[MAXRCVLEN];
   socklen_t socksize = sizeof(struct sockaddr_in);
@@ -72,6 +79,12 @@ int inspector(int PORTNUM) {
 
 std::vector<unsigned char> readBinaryFile(string filename)
 {
+  /**
+    Função que faz a leitura do binária do arquivo passada como parâmetro
+    @param filename: Uma string que apontando o arquivo à ser lido
+    @return std::vector<unsigned char>: Um vetor de unsigned char com o bytes lidos do arquivo.
+    */
+
     // open the file:
     std::ifstream file(filename, std::ios::binary);
 
@@ -99,6 +112,11 @@ std::vector<unsigned char> readBinaryFile(string filename)
 
 std::string readTextFile(string path)
 { 
+  /**
+    Função que faz a leitura em modo de texto do arquivo passada como parâmetro.
+    @param path: Uma string que apontando o arquivo à ser lido.
+    @return std::string: Um string contendo o conteúdo do arquivo.
+    */
     string result;
     ifstream ifs(path, ios::binary);
     string str(istreambuf_iterator<char>{ifs}, {});
@@ -107,6 +125,12 @@ std::string readTextFile(string path)
 }
 
 bool writeFile(string path, vector<unsigned char> dados){
+  /**
+    Função que faz a escrita dos dados passados como parâmetro em path.
+    @param path: Uma string que apontando o arquivo à ser escrito.
+    @param dados: Um vector de unsigned char com os dados à serem escritos no arquivo.
+    @return bool: Um booleano indicando sucesso na escrito arquivo.
+    */
     ofstream fout(path, ios::out | ios::binary);
     fout.write((char*)&dados[0], dados.size() * sizeof(unsigned char));
     fout.close();

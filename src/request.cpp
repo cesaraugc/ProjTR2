@@ -3,6 +3,11 @@ using namespace std;
 
 /* Recebe uma string e realiza a requisição */
 vector <unsigned char> makeRequest(std::string msg_string) {
+  /**
+  Função que realiza a requisição no servidor de origem.
+  @param msg_string: Uma string que será passada ao socket para enviar ao servidor.
+  @return vector <unsigned char>: Um vector de unsigned char com a resposta recebida.
+  */ 
     struct sockaddr_in dest;
     struct hostent *hp;
     unsigned char buff;
@@ -44,6 +49,12 @@ vector <unsigned char> makeRequest(std::string msg_string) {
 
 /* Retorna o Host Name da mensagem recebida */
 std::string getHostValue(std::string msg_string) {
+  /**
+  Função que resgata o valor do campo Host para fazer um query DNS em busca do IP de origem. 
+  O campo Host precisa ser passado na requisição HTTP.
+  @param msg_string: Uma string que será inpecionada para extrair o valor de Host.
+  @return std::string: Uma string que contém o valor do campo.
+  */ 
   std::size_t temp, temp2;
   std::string host_name;
 

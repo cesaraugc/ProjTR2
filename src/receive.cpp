@@ -1,6 +1,12 @@
 #include "connection.hpp"
 
 int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
+  /**
+  Função que cria um socket para escutar as requisições vindas do browser.
+  @param portNum: Porta que será aberta para receber requisições.
+  @param parallelConnections: Número de conexões em paralelo que podem ser recebidas do browser
+  @return int: Um inteiro com o descriptor do socket.
+  */ 
   extern struct freeMemoryList fml;
   struct sockaddr_in *serv; /* socket info about our server */
   int sckt;            /* socket used to listen for incoming connections */
@@ -33,6 +39,9 @@ int createNewSocket (uint16_t portNum, uint16_t parallelConnections) {
 }
 
 void freeMemory () {
+  /**
+  Função que libera a memória após a execução do programa evitando memory leak.
+  */ 
   extern struct freeMemoryList fml;
   free(fml.serv);
   free(fml.dest);
